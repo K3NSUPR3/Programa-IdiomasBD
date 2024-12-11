@@ -176,7 +176,7 @@
                             <h5 class="text-white text-uppercase mb-4">Novedades</h5>
                             <div class="w-100">
                                 <div class="input-group">
-                                    <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="Your Email Address">
+                                   <p>Gracias por consultar</p>
                                     <div class="input-group-append">
                                         <button class="btn btn-primary px-4">Iniciar sesion</button>
                                     </div>

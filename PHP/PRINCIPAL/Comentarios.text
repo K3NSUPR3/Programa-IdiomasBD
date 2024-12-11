@@ -4,33 +4,28 @@ Clase Usuarios editada
 falta 
 <!--aqui se quito action= 'Usuario.php'-->   en la parte de Registro.php
 
-Si quiere seleccionar que se añada varios cursos en diferentes niveles
+Falta los 3 usuarios en copias  //opcional
 
-
-Falta los 3 usuarios en copias 
-
-Falta el editar con el servidor 
-
-Falta poner el contacto del profesor en la bd
+Falta poner el contacto del profesor en la bd creo manualmente
 
 El apartado de calificaciones en base a testimonial pero sin todo los datos solo calif 
-de cada undidad nombre 
+de cada unididad nombre 
 apellido, fecha , Grupo al que pertenece el Alumno
 
 El de duplicacion de la tabla Profesores si el tipoUusario es Profesor 
 
 el usuario en el menu desplegable,   
 
-Cerrado de secion en cada rol ADMIN , PROFE
+Captcha en el log in  //opcional
 
-Captcha en el log in
+Recuperacion de contrase;a en Olvido contra en Log In (normal,A,U). //opcional
 
-Recuperacion de contrase;a en Olvido contra
-
-El Admin ejecutar consultas a las otras tablas.
+El Admin ejecutar consultas a las otras tablas faltan 2. 
 
 Si existe usuario en un grupo no enviarlo a price.php
 
 Revisar los log ins 
 
-Falta hacer automatico el pase de tablas si tipoUsuario es igual 
+Falta hacer automatico el pase de tablas si tipoUsuario es igual  
+
+Falta que se guarde bien el reporte en testimonial.php abajo en cvg 

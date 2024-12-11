@@ -181,16 +181,18 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
     include "ControlEliminar.php";
     //libreriras necesarias
     ?>
-    <a href="AñadirUsuario.php" class="btn btn-primary btn rounded mb-3><<i class="fa-solid fa-plus"></i> &nbsp;Añadir</a> 
+    <a href="AñadirAlumno.php" class="btn btn-primary btn rounded mb-3"><i class="fa-solid fa-plus"></i> &nbsp;Añadir</a>
+    <a href="#Guardando" id="guardarBtn" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: blue; text-decoration: none; border-radius: 5px; transition: background-color 0.3s;">Guardar</a> 
+    <!--Inicio Registro-->
     <div class="container mt-5">
         <div title="TABLA">
         <h4 class="text-center text-secondary">Registros</h4>
-            <table class="table table-bordered table-hover col-12" id="example">
+            <table class="table table-bordered table-hover col-12" id="example" id="TablaR">
                 <thead>
                     <tr>
                         <th scope="cot">Nombre</th>
                         <th scope="col">Apellidos</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Correo E.</th>
                         <th scope="col">Contraseña</th>
                         <th scope="col">ID</th>
                         <th scope="col">Usuario</th>
@@ -199,40 +201,96 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
             <tbody>
             <tbody> 
             <?php 
-$sql = "SELECT Nombre, Apellido, Email, Contraseña, ID, Usuario FROM registroidiomas"; 
-$result = $enlace->query($sql); 
+        $sql = "SELECT Nombre, Apellido, Email, Contraseña, ID, Usuario FROM registroidiomas"; 
+        $result = $enlace->query($sql); 
 
-if ($result->num_rows > 0) { 
-    while($row = $result->fetch_assoc()) { 
-        echo "<tr>";
-        echo "<form action = 'update.php' method = 'post'>";
-        echo "<td style='color: #007bff; font-weight: bold;'>" . htmlspecialchars($row["Nombre"]) . "</td>"; 
-        echo "<td style='color: #6c757d;'>" . htmlspecialchars($row["Apellido"]) . "</td>"; 
-        echo "<td style='color: #17a2b8;'>" . htmlspecialchars($row["Email"]) . "</td>"; 
-        echo "<td style='color: #dc3545;'>" . htmlspecialchars($row["Contraseña"]) . "</td>"; 
-        echo "<td style='color: #ffc107;'>" . htmlspecialchars($row["ID"]) . "</td>"; 
-        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Usuario"]) . "</td>"; 
-        echo "<td class='btn-group'> 
-        <button type='button' class='btn btn-warning btn-sm' onclick=\"abrirModalEditarUsuario('" . htmlspecialchars($row["Nombre"]) . "', '" . htmlspecialchars($row["Apellido"]) . "', '" . htmlspecialchars($row["Email"]) . "', '" . htmlspecialchars($row["Contraseña"]) . "', '" . htmlspecialchars($row["ID"]) . "', '" . htmlspecialchars($row["Usuario"]) . "')\"><i class='fa-solid fa-pen-to-square'></i></button>
-            <a href='testimonial.php?id=" . htmlspecialchars($row["ID"]) . "' 
-               class='btn btn-danger btn-sm' 
-               title='Eliminar' 
-               onclick='return advertencia()'>
-               <i class='fa-solid fa-trash'></i>
-            </a>
-          </td>";
-         echo "</form>";
-        echo "</tr>"; 
-    } 
-} else { 
-    echo "<tr><td colspan='6' style='text-align: center; color: #6c757d;'>No hay datos</td></tr>"; 
-} 
-$enlace->close();
-?>
+                if ($result->num_rows > 0) { 
+                    while($row = $result->fetch_assoc()) { 
+                        echo "<tr>";
+                        echo "<form action = 'updates/update.php' method = 'post'>";
+                        echo "<td style='color: #007bff; font-weight: bold;'>" . htmlspecialchars($row["Nombre"]) . "</td>"; 
+                        echo "<td style='color: #6c757d;'>" . htmlspecialchars($row["Apellido"]) . "</td>"; 
+                        echo "<td style='color: #17a2b8;'>" . htmlspecialchars($row["Email"]) . "</td>"; 
+                        echo "<td style='color: #dc3545;'>" . htmlspecialchars($row["Contraseña"]) . "</td>"; 
+                        echo "<td style='color: #ffc107;'>" . htmlspecialchars($row["ID"]) . "</td>"; 
+                        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Usuario"]) . "</td>"; 
+                        echo "<td class='btn-group'> 
+                        <button type='button' class='btn btn-warning btn-sm' onclick=\"abrirModalEditarUsuario('" . htmlspecialchars($row["Nombre"]) . "', '" . htmlspecialchars($row["Apellido"]) . "', '" . htmlspecialchars($row["Email"]) . "', '" . htmlspecialchars($row["Contraseña"]) . "', '" . htmlspecialchars($row["ID"]) . "', '" . htmlspecialchars($row["Usuario"]) . "')\"><i class='fa-solid fa-pen-to-square'></i></button>
+                            <a href='testimonial.php?id=" . htmlspecialchars($row["ID"]) . "' 
+                            class='btn btn-danger btn-sm' 
+                            title='Eliminar' 
+                            onclick='return advertencia()'>
+                            <i class='fa-solid fa-trash'></i>
+                            </a>
+                        </td>";
+                        echo "</form>";
+                        echo "</tr>"; 
+                    } 
+                } else { 
+                    echo "<tr><td colspan='6' style='text-align: center; color: #6c757d;'>No hay datos</td></tr>"; 
+                } 
+                   // $enlace->close();
+            ?>
 
             </tbody>
       </tbody>
 </table>
+<!--End Registros-->
+
+<!--Inicio Inscripciones-->
+<div class="container mt-5">
+        <div title="TABLA">
+        <h4 class="text-center text-secondary">Inscripciones</h4>
+            <table class="table table-bordered table-hover col-12" id="example" id="TablaR">
+                <thead>
+                    <tr>
+                        <th scope="cot">Nombre</th>
+                        <th scope="col">Correo Eléctronico</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Idioma</th>
+                        <th scope="col">Plan</th>
+                        <th scope="col">ID</th>
+                    </tr>
+                </thead>
+            <tbody>
+            <tbody> 
+            <?php 
+        $sql = "SELECT Nombre, Correo, Fecha,Horario,Idioma,Plan,Id_Insc FROM inscripciones"; 
+        $result = $enlace->query($sql); 
+
+                if ($result->num_rows > 0) { 
+                    while($row = $result->fetch_assoc()) { 
+                        echo "<tr>";
+                        echo "<form action = 'updates/updateIns.php' method = 'post'>";
+                        echo "<td style='color: #007bff; font-weight: bold;'>" . htmlspecialchars($row["Nombre"]) . "</td>"; 
+                        echo "<td style='color: #6c757d;'>" . htmlspecialchars($row["Correo"]) . "</td>"; 
+                        echo "<td style='color: #17a2b8;'>" . htmlspecialchars($row["Fecha"]) . "</td>"; 
+                        echo "<td style='color: #dc3545;'>" . htmlspecialchars($row["Horario"]) . "</td>"; 
+                        echo "<td style='color: #ffc107;'>" . htmlspecialchars($row["Idioma"]) . "</td>"; 
+                        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Plan"]) . "</td>"; 
+                        echo "<td class='btn-group'> 
+                        <button type='button' class='btn btn-warning btn-sm' onclick=\"abrirModalEditarUsuario('" . htmlspecialchars($row["Nombre"]) . "', '" . htmlspecialchars($row["Correo"]) . "', '" . htmlspecialchars($row["Fecha"]) . "', '" . htmlspecialchars($row["Horario"]) . "', '" . htmlspecialchars($row["Idioma"]) . "', '" . htmlspecialchars($row["Plan"]) . "')\"><i class='fa-solid fa-pen-to-square'></i></button>
+                            <a href='testimonial.php?id=" . htmlspecialchars($row["Id_Insc"]) . "' 
+                            class='btn btn-danger btn-sm' 
+                            title='Eliminar' 
+                            onclick='return advertencia()'>
+                            <i class='fa-solid fa-trash'></i>
+                            </a>
+                        </td>";
+                        echo "</form>";
+                        echo "</tr>"; 
+                    } 
+                } else { 
+                    echo "<tr><td colspan='6' style='text-align: center; color: #6c757d;'>No hay datos</td></tr>"; 
+                } 
+                    $enlace->close();
+            ?>
+            </tbody>
+      </tbody>
+</table>
+<!--End Inscripcion-->
+
 <!-- Model -->
 <div class="modal" tabindex="-1" id="editUserModal">
   <div class="modal-dialog">
@@ -244,7 +302,7 @@ $enlace->close();
         </button>
       </div>
       <div class="modal-body">
-        <form id="editUserForm" action="update.php" method="post">
+        <form id="editUserForm" action="updates/update.php" method="post">
           <input type="hidden" name="ID" id="editUserID">
           <div class="form-group">
             <label for="editNombre">Nombre:</label>
@@ -255,7 +313,7 @@ $enlace->close();
             <input type="text" class="form-control" name="Apellido" id="editApellido">
           </div>
           <div class="form-group">
-            <label for="editEmail">Email:</label>
+            <label for="editEmail">Correo Eléctronico:</label>
             <input type="email" class="form-control" name="Email" id="editEmail">
           </div>
           <div class="form-group">
@@ -275,7 +333,52 @@ $enlace->close();
     </div>
   </div>
 </div>
+            <!--Fin Modelo-->
 
+            <!--Modelo Ins-->
+<!-- Model -->
+<div class="modal" tabindex="-1" id="editUserModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modificar Incripción</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editInsForm" action="updates/updateIns.php" method="post">
+          <input type="hidden" name="ID" id="editUserID">
+          <div class="form-group">
+            <label for="editNombre">Nombre:</label>
+            <input type="text" class="form-control" name="Nombre" id="editNombre">
+          </div>
+          <div class="form-group">
+            <label for="editCorreo">Correo Eléctronico:</label>
+            <input type="email" class="form-control" name="Correo" id="editCorreo">
+          </div>
+          <div class="form-group">
+            <label for="editFecha">Fecha</label>
+            <input type="date" class="form-control" name="Fecha" id="editFecha">
+          </div>
+          <div class="form-group">
+            <label for="editHorario">Horario:</label>
+            <input type="text" class="form-control" name="Horario" id="editHorario">
+          </div>
+          <div class="form-group">
+            <label for="editPlan">Plan:</label>
+            <input type="text" class="form-control" name="Plan" id="editPlan">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('editInsForm').submit();">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+            <!--End modelo Insc-->
 
     <!-- Footer Start -->
     <div class="footer container-fluid position-relative bg-dark py-5" style="margin-top: 90px;">
@@ -363,7 +466,7 @@ $enlace->close();
         }
     </script>
 
-    <!-- Abrir ventana culera -->
+    
     <script>
             function abrirModalEditarUsuario(nombre, apellido, email, contrasena, id, usuario) {
                 document.getElementById('editUserID').value = id;
@@ -373,8 +476,54 @@ $enlace->close();
                 document.getElementById('editContraseña').value = contrasena;
                 document.getElementById('editUsuario').value = usuario;
                 $('#editUserModal').modal('show');
-}
-</script>
+     }
+    </script>
+    <!--Ventana Registro-->
+
+    <script>
+            function abrirModalEditarUsuario(nombre, apellido, email, contrasena, id, usuario) {
+                document.getElementById('editUserID').value = id;
+                document.getElementById('editNombre').value = nombre;
+                document.getElementById('editCorreo').value = apellido;
+                document.getElementById('editFecha').value = email;
+                document.getElementById('editHorario').value = contrasena;
+                document.getElementById('editPlan').value = usuario;
+                $('#editUserModal').modal('show');
+     }
+    </script>
+    <!--Ventana Registro-->
+
+    <!--guardar reporte-->
+    <script>
+        document.getElementById('guardarBtn').addEventListener('click', function() {
+            // Obtén la tabla HTML
+            var tabla = document.getElementById('TablaR');
+            // Convierte la tabla a una cadena CSV
+            var csv = [];
+            var filas = tabla.querySelectorAll('tr');
+            
+            for (var i = 0; i < filas.length; i++) {
+                var fila = [], columnas = filas[i].querySelectorAll('th, td');
+                for (var j = 0; j < columnas.length; j++) {
+                    fila.push(columnas[j].innerText);
+                }
+                csv.push(fila.join(','));        
+            }
+
+            // Crear un archivo Blob con los datos CSV
+            var csvData = csv.join('\n'); 
+            var csvFile = new Blob([csvData], { type: 'text/csv' });
+            // Crear un enlace para la descarga
+            var downloadLink = document.createElement('a');
+            downloadLink.download = 'tabla.csv';
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+            downloadLink.style.display = 'none';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        });
+    </script>
+
 
 </body>
 

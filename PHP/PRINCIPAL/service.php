@@ -126,7 +126,7 @@
                     <h4 class="text-white font-weight-medium px-3">Acerca de Rusia</h4>
                     <p class="text-white px-3 mb-3">Rusia tiene la mayor extensión forestal del mundo, conocida como la "Taiga". La Taiga rusa cubre más del 60% del país</p>
                     <div class="w-100 bg-white text-center p-4" >
-                        <a class="btn btn-primary" href="https://www.bbc.com/mundo/noticias-internacional-60716698">ver</a>
+                        <a class="btn btn-primary" href="https://colombia.mid.ru/es/rusia_colombia/rusia/historia_en_breve/">ver</a>
                     </div>
                 </div>
             </div>
@@ -144,7 +144,7 @@
                 <img class="img-fluid" src="img/Flag_of_UK.png" alt=""> 
                 <div class="service-text text-center">
                     <h4 class="text-white font-weight-medium px-3">Acerca de Reino Unido</h4>
-                    <p class="text-white px-3 mb-3">El Reino Unido tiene un lago llamado "Lago Lomond", que alberga más de 30 islas, algunas de las cuales están habitadas</p>
+                    <p class="text-white px-3 mb-3">El Reino Unido tiene un lago llamado "Lago Lomond", que alberga más de 30 islas</p>
                     <div class="w-100 bg-white text-center p-4" >
                         <a class="btn btn-primary" href="https://www.britannica.com/place/United-Kingdom">ver</a>
                     </div>
@@ -154,7 +154,7 @@
                 <img class="img-fluid" src="img/Flag_of_Germany.png" alt="">
                 <div class="service-text text-center">
                     <h4 class="text-white font-weight-medium px-3">Acerca de Alemania</h4>
-                    <p class="text-white px-3 mb-3">Alemania recicla más de 85% de su basura, lo que convierte en uno de los países más ecológicos del mundo. Con más de 25000 clubes de fútbol y 6 millones de integrantes, la federación alemana de fútbol es la más grande en el mundo deportivo. Alemania tiene 414 zoológicos registrados</p>
+                    <p class="text-white px-3 mb-3">Alemania recicla más de 85% de su basura, lo que convierte en uno de los países más ecológicos,tiene 414 zoológicos</p>
                     <div class="w-100 bg-white text-center p-4" >
                         <a class="btn btn-primary" href="https://www.deutschland.de/es/topic/saber/seis-datos-curiosos-sobre-el-idioma-aleman#:~:text=El%20alem%C3%A1n%20es%20la%20lengua,%2C%20B%C3%A9lgica%2C%20Liechtenstein%20y%20Suiza.">ver</a>
                     </div>
@@ -164,7 +164,7 @@
                 <img class="img-fluid" src="img/Flag_of_France.png" alt="">
                 <div class="service-text text-center">
                     <h4 class="text-white font-weight-medium px-3">Acerca de Francia</h4>
-                    <p class="text-white px-3 mb-3">Francia es el país con más husos horarios del mundo. Aunque parece sorprendente, Francia tiene un total de 12 husos horarios diferentes</p>
+                    <p class="text-white px-3 mb-3">El país con más husos horarios del mundo. Aunque parece sorprendente, Francia tiene un total de 12 husos horarios diferentes</p>
                     <div class="w-100 bg-white text-center p-4" >
                         <a class="btn btn-primary" href="https://paisescon.com/francia/">ver</a>
                     </div>
@@ -174,7 +174,7 @@
                 <img class="img-fluid" src="img/Flag_of_China.png" alt="">
                 <div class="service-text text-center">
                     <h4 class="text-white font-weight-medium px-3">Acerca de China</h4>
-                    <p class="text-white px-3 mb-3">La Gran Muralla China es más larga de lo que la mayoría de la gente piensa. Aunque comúnmente se cree que la longitud de la Gran Muralla China es alrededor de 13,000 millas (20,921 kilómetros)</p>
+                    <p class="text-white px-3 mb-3">Aunque comúnmente se cree que la longitud de la Gran Muralla China es alrededor de 13,000 millas (20,921 kilómetros)</p>
                     <div class="w-100 bg-white text-center p-4" >
                         <a class="btn btn-primary" href="https://www.nationalgeographic.es/viaje-y-aventuras/china">ver</a>
                     </div>
@@ -185,7 +185,7 @@
             <div class="col-lg-6 py-5">
                 <div class="p-5 my-5" style="background: rgba(33, 30, 28, 0.7);">
                     <h1 class="text-white text-center mb-4">Incribirse</h1>
-                    <form action="registrarInscripcion.php" method="POST">
+                    <form action="registrarInscripcion.php" method="POST" onsubmit="return validateForm()">
                         <div class="form-row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -231,14 +231,14 @@
                                 <div class="form-group">
                                     <select id="formulario" class="form-select" name="SPlan" title="Formulario" onchange="mostrarFormulario(this.value)" class="custom-select bg-transparent px-4" style="height: 47px;">
                                         <option value="" disable selected>Selecciona un Plan</option>
-                                        <option value="PF">Plan Familiar</option>
                                         <option value="PB">Plan Basico</option>
+                                        <option value="PF">Plan Familiar</option>
                                         <option value="PV">Plan VIP</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <button onsubmit="return validarFormulario()" class="btn btn-primary btn-block" type="submit" style="height: 47px;" name="botonInsc" >Inscribirse</button>
+                                <button class="btn btn-primary btn-block" type="submit" style="height: 47px;" name="botonInsc" >Inscribirse</button>
                             </div>
                         </div>
                     </form>
@@ -257,7 +257,7 @@
                     <img class="img-fluid w-100" src="img/FONDOTODO.jpg" alt="">
                 </div>
                 <div class="col-lg-6">
-                    <h6 class="d-inline-block text-primary text-uppercase bg-light py-1 px-2">Testimonial</h6>
+                    <h6 class="d-inline-block text-primary text-uppercase bg-light py-1 px-2">Testimonios</h6>
                     <h1 class="mb-4">¡Mira lo que opinan nuestros clientes!</h1>
                     <div class="owl-carousel testimonial-carousel">
                         <div class="position-relative">
@@ -383,21 +383,16 @@
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
     <script> 
-    function validarFormulario() 
-    { var select1 = document.querySelector('.custom-select'); 
-        var select2 = document.getElementById('formulario'); 
-        if (select1.value === "" || select2.value === ""){ 
-            alert("Por favor, selecciona una opción válida en ambos campos."); 
-            return false; 
-        } 
-        return true; } 
-        { var select1 = document.querySelector('.custom-select'); 
-        var select2 = document.getElementById(''); 
-        if (select1.value === "" || select2.value === ""){ 
-            alert("Por favor, selecciona una opción válida en ambos campos."); 
-            return false; 
-        } 
-        return true; }
+    function validateForm() {
+            var idioma = document.forms["contactForm"]["SIdioma"].value;
+            var plan = document.forms["contactForm"]["SPlan"].value;
+
+            if (idioma === "" || plan === "") {
+                alert("Por favor da click 7 veces y selecciona un idioma y un plan.");
+                return false;
+            }
+            return true;
+         }   
     </script>
 
     <!-- Contact Javascript File -->

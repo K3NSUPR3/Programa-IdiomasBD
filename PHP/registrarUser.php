@@ -8,9 +8,13 @@
     $contra=$_POST['password1'];
     $usuario=$_POST['usuario'];
     //hacer el insert de datos
-    $insertarDatos="INSERT INTO registroidiomas(Nombre,Apellido,Email,Contraseña,ID,Usuario,TipoUsuario) VALUES ('$nombre','$apellido','$email','$contra','','$usuario','alumno')";
-    
-    //Verificar que el correo no se repita en la bd
+    //forma anterior  $insertarDatos="INSERT INTO registroidiomas(Nombre,Apellido,Email,Contraseña,ID,Usuario,TipoUsuario) VALUES ('$nombre','$apellido','$email','$contra','','$usuario','alumno')";
+    $insertarDatos = "INSERT INTO registroidiomas (Nombre, Apellido, Email, Contraseña, Usuario, TipoUsuario) VALUES ('$nombre', '$apellido', '$email', '$contra', '$usuario', 'alumno')";
+    if (mysqli_query($enlace, $insertarDatos)) { 
+        $userId = mysqli_insert_id($enlace); // Obtén el ID insertado 
+        $_SESSION['ID'] = $userId; // Guarda el ID en la sesión 
+       //Verificar que el correo no se repita en la bd
+    }
    
     $verificar_correo = mysqli_query($enlace,"SELECT * FROM registroidiomas WHERE Email='$email' ");
 

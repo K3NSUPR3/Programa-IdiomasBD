@@ -8,59 +8,85 @@ if(isset($_POST['botonInsc'])){
    $horario=$_POST['horario'];
    $idioma=$_POST['SIdioma'];
    $Plan=$_POST['SPlan'];
+
+
+    //validacion plan
+    switch ($Plan) {
+        case 'PB': // Plan Básico - No se permite repetir nombre ni correo
+            $verificar_correo = mysqli_query($enlace, "SELECT * FROM inscripciones WHERE Correo='$email'");
+            if (mysqli_num_rows($verificar_correo) > 0) {
+                echo '
+                    <script type="text/javascript">
+                        alert("Este correo ya está registrado. Actualiza tu plan.");
+                        window.location="service.php";
+                    </script>
+                ';
+                exit();
+            }
+            $verificar_usuario = mysqli_query($enlace, "SELECT * FROM inscripciones WHERE Nombre='$nombre'");
+            if (mysqli_num_rows($verificar_usuario) > 0) {
+                echo '
+                    <script type="text/javascript">
+                        alert("Nombre registrado. Intenta contratar otro plan.");
+                        window.location="service.php";
+                    </script>
+                ';
+                exit();
+            }
+            break;
+
+        case 'PF': // Plan Familiar - Permitir hasta 3 repeticiones por idioma
+            $verificar_usuario = mysqli_query($enlace, "SELECT * FROM inscripciones WHERE Nombre='$nombre' AND Correo='$email' AND Idioma='$idioma'");
+            if (mysqli_num_rows($verificar_usuario) >= 3) {
+                echo '
+                    <script type="text/javascript">
+                        alert("Ya tienes 3 inscripciones con este plan. No puedes repetir más.");
+                        window.location="service.php";
+                    </script>
+                ';
+                exit();
+            }
+            break;
+
+        case 'PV': // Plan VIP - Permitir hasta 5 repeticiones
+            $verificar_usuario = mysqli_query($enlace, "SELECT * FROM inscripciones WHERE Nombre='$nombre' AND Correo='$email'");
+            if (mysqli_num_rows($verificar_usuario) >= 5) {
+                echo '
+                    <script type="text/javascript">
+                        alert("Ya tienes 5 inscripciones con este plan. No puedes repetir más.");
+                        window.location="service.php";
+                    </script>
+                ';
+                exit();
+            }
+            break;
+    }
+
+
+    //fin valida
+
    //hacer el insert de datos
-   $insertarDatos="INSERT INTO inscripciones(Nombre,Correo,Fecha,Horario,Idioma,Plan) 
-   VALUES ('$nombre','$email','$fecha','$horario','$idioma','$Plan')";
+   $insertarDatos="INSERT INTO inscripciones(Nombre,Correo,Fecha,Horario,Idioma,Plan,Id_Insc) 
+   VALUES ('$nombre','$email','$fecha','$horario','$idioma','$Plan','')";
    
    
    //Verificar que el correo no se repita en la bd
-  
-
-   $verificar_correo = mysqli_query($enlace,"SELECT * FROM inscripciones WHERE Correo='$email' ");
-
-   if(mysqli_num_rows($verificar_correo) > 0){
-       echo '
-           <script type="text/javascript">
-               alert("Este correo ya esta registrado intenta con otro");
-               window.location="Registrarse.php";
-           </script>
-       ';
-       exit();
-   }
-
-   //No se repita usuario ingresado anteriormente
-   $verificar_usuario = mysqli_query($enlace,"SELECT * FROM inscripciones WHERE Nombre='$nombre'");
-               // Mensaje de aviso y que regrese
-   if(mysqli_num_rows($verificar_usuario) > 0){
-       echo '
-           <script type="text/javascript">
-               alert("Nombre registrado intenta con otro");
-               window.location="Registrarse.php";
-           </script>
-       ';
-       exit();
-   }
-
-   $ejecutarInsertar = mysqli_query($enlace,$insertarDatos);
-
-   if($ejecutarInsertar){
+   if (mysqli_query($enlace, $insertarDatos)) {
     echo '
-    <script type="text/javascript">
-       alert("Inscrito con exito");
-    </script>
+        <script type="text/javascript">
+            alert("Inscripción exitosa.");
+            window.location="service.php";
+        </script>
     ';
-    header("location:service.php");
+} else {
+    echo '
+        <script type="text/javascript">
+            alert("Error: ' . mysqli_error($enlace) . '");
+        </script>
+    ';
+}
 
-   }else{
-       echo '
-       <script type="text/javascript">
-          alert("Intentalo de nuevo");
-       </script>
-       ';
-       header("Location:service.php");   
-
-   }
-   mysqli_close($enlace);
+mysqli_close($enlace);
 }
 
 ?>

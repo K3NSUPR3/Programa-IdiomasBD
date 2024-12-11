@@ -176,10 +176,10 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
     </div>
     <!-- Header End -->
 
-
+ 
     <!-- Contact Start -->
     <div class="container-fluid py-5">
-    <img class="position-absolute w-100 h-100" src="img/Carousel-3.jpg" style="object-fit: cover;">
+        <img class="position-absolute w-100 h-100" src="img/Carousel-3.jpg" style="object-fit: cover;">
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-6" style="min-height: 500px;">
@@ -190,35 +190,29 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
                 <div class="col-lg-6 pt-5 pb-lg-5">
                     <div class="contact-form bg-light p-4 p-lg-5 my-lg-5">
                         <h6 class="d-inline-block text-white text-uppercase bg-primary py-1 px-2">Contacto</h6>
-                        <h1 class="mb-4">Contactanos para formar parte de nuestro Equipo</h1>
+                        <h1 class="mb-4">Contáctanos para formar parte de nuestro Equipo</h1>
                         <div id="success"></div>
-                        <form action="Maestro.php" method="POST" name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <form action="Maestro.php" method="POST" name="Solicitud Enviada" id="contactForm" novalidate="novalidate">
                             <div class="form-row">
                                 <div class="col-sm-6 control-group">
-                                    <input type="text" class="form-control border-0 p-4" minlength="15" id="name" name="nombre" placeholder="Nombre"
-                                        required="required" data-validation-required-message="Pon tu nombre" />
+                                    <input type="text" class="form-control border-0 p-4" minlength="15" id="name" name="nombre" placeholder="Nombre" required="required" data-validation-required-message="Pon tu nombre" />
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="col-sm-6 control-group">
-                                    <input type="email" class="form-control border-0 p-4" id="email" name="CorreoE" placeholder="Correo Eléctronico"
-                                        required="required" data-validation-required-message="Por favor llena tu email" />
+                                    <input type="email" class="form-control border-0 p-4" id="email" name="CorreoE" placeholder="Correo Electrónico" required="required" data-validation-required-message="Por favor llena tu email" />
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="control-group">
-                                <input type="text" minlength="3" class="form-control border-0 p-4" id="subject" name="Lenguaje" placeholder="Lenguaje a enseñar"
-                                    required="required" data-validation-required-message="Lenguaje requerido" />
+                                <input type="text" minlength="3" class="form-control border-0 p-4" id="subject" name="Lenguaje" placeholder="Lenguaje a enseñar" required="required" data-validation-required-message="Lenguaje requerido" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 py-3 px-4" minlength="100" rows="3" id="message" name="Exp" placeholder="Experiencia"
-                                    required="required"
-                                    data-validation-required-message="Escribe tu experiencia" />
+                                <textarea class="form-control border-0 py-3 px-4" minlength="100" rows="3" id="message" name="Exp" placeholder="Experiencia" required="required" data-validation-required-message="Escribe tu experiencia"></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div>
-                                <button class="btn btn-primary py-3 px-4" type="submit" name="maestro" id="sendMessageButton">Enviar
-                                    Solicitud</button>
+                                <button class="btn btn-primary py-3 px-4" type="submit" name="maestro" id="sendMessageButton">Enviar Solicitud</button>
                             </div>
                         </form>
                     </div>
@@ -227,6 +221,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
         </div>
     </div>
     <!-- Contact End -->
+
     <div class="rounded-md bg-white py-12 px-8 lg:px-9 lg:pt-16 lg:pb-20">
         <h2 class="text-center text-2xl font-semibold uppercase">Idiomas</h2>
         <p class="mt-3 mb-5 text-center text-base sm:text-lg md:mb-7 lg:mb-8 xl:mb-10">Idiomas más demandados</p>
@@ -235,16 +230,15 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
             <img src="img/Flag_of_the_US.webp" alt="Inglés" class="h-16">
             <strong class="py-1 sm:py-0">Inglés</strong>
                 <p class="text-justify">Explore the world of English with us! English is a widely spoken language that can open many doors for you. Our courses are designed for all levels, ensuring you have a personalized learning experience. Our engaging lessons focus on improving grammar, vocabulary, and speaking skills. With our modern facilities and technology, learning English is easy and enjoyable. Whether you want to advance your career, travel, or just learn something new, mastering English will broaden your horizons. Join our community today and let English be your key to a world of communication, culture, and connections. Unlock your language potential with us!</p>
-        </div>
+            </div>
             <div class="w-80 sm:w-4/5 md:w-72 flex flex-col items-center gap-y-2">
             <img src="img/Flag_of_France.png" alt="Francés" class="h-16">
             <strong class="py-1 sm:py-0">Francés</strong>
             <p class="text-justify">Explorez la richesse du français avec notre plateforme linguistique ! Le français, langue élégante et mondiale, ouvre les portes à une multitude d'opportunités. Nos cours, dirigés par des experts, s'adaptent à tous les niveaux, assurant une expérience d'apprentissage personnalisée. Plongez dans des leçons captivantes, améliorant grammaire, vocabulaire et compétences conversationnelles. 
- Rejoignez notre communauté dès aujourd'hui et laissez le français être votre clé vers un monde de communication, de culture et de connexions. Libérez votre potentiel linguistique avec nous !</p></div>
-<div class="w-80 sm:w-4/5 md:w-72 flex flex-col items-center gap-y-2">
-    <img src="img/Flag_of_Germany.png" alt="Alemán" class="h-16">
-    <strong class="py-1 sm:py-0">Alemán</strong><p class="text-justify">Entdecken Sie die Vielfalt der deutschen Sprache auf unserer Plattform! Deutsch, eine prächtige und weltweit gesprochene Sprache, öffnet Türen zu zahlreichen Möglichkeiten. Unsere von Experten geleiteten Kurse sind auf alle Niveaus zugeschnitten und bieten eine individuelle Lernerfahrung. Tauchen Sie ein in spannende Lektionen, um Grammatik, Wortschatz und Konversation zu verbessern. Unsere modernen Einrichtungen und technologiebasierten Ansätze machen das Deutschlernen einfach und unterhaltsam. Egal, ob Sie beruflich vorankommen, reisen oder einfach etwas Neues lernen möchten – die Beherrschung der deutschen Sprache erweitert Ihren Horizont. Treten Sie noch heute unserer Gemeinschaft bei und lassen Sie Deutsch Ihr Schlüssel zu einer Welt der Kommunikation, Kultur und Verbindungen sein. Entfesseln Sie Ihr sprachliches Potenzial mit uns!</p></div></div></div>
-
+             Rejoignez notre communauté dès aujourd'hui et laissez le français être votre clé vers un monde de communication, de culture et de connexions. Libérez votre potentiel linguistique avec nous !</p></div>
+            <div class="w-80 sm:w-4/5 md:w-72 flex flex-col items-center gap-y-2">
+            <img src="img/Flag_of_Germany.png" alt="Alemán" class="h-16">
+            <strong class="py-1 sm:py-0">Alemán</strong><p class="text-justify">Entdecken Sie die Vielfalt der deutschen Sprache auf unserer Plattform! Deutsch, eine prächtige und weltweit gesprochene Sprache, öffnet Türen zu zahlreichen Möglichkeiten. Unsere von Experten geleiteten Kurse sind auf alle Niveaus zugeschnitten und bieten eine individuelle Lernerfahrung. Tauchen Sie ein in spannende Lektionen, um Grammatik, Wortschatz und Konversation zu verbessern. Unsere modernen Einrichtungen und technologiebasierten Ansätze machen das Deutschlernen einfach und unterhaltsam. Egal, ob Sie beruflich vorankommen, reisen oder einfach etwas Neues lernen möchten – die Beherrschung der deutschen Sprache erweitert Ihren Horizont. Treten Sie noch heute unserer Gemeinschaft bei und lassen Sie Deutsch Ihr Schlüssel zu einer Welt der Kommunikation, Kultur und Verbindungen sein. Entfesseln Sie Ihr sprachliches Potenzial mit uns!</p></div></div></div>
 
     <!-- Footer Start -->
     <div class="footer container-fluid position-relative bg-dark py-5" style="margin-top: 90px;">
@@ -266,10 +260,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
                         <div class="col-sm-6 mb-5">
                             <h5 class="text-white text-uppercase mb-4">Enlaces Rápidos</h5>
                             <div class="d-flex flex-column justify-content-start">
-                                <a class="text-white-50 mb-2" href="index.php"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
-                                <a class="text-white-50 mb-2" href="about.php"><i class="fa fa-angle-right mr-2"></i>Acerca de Nosotros</a>
-                                <a class="text-white-50 mb-2" href="service.php"><i class="fa fa-angle-right mr-2"></i>Nuestros Cursos</a>
-                                <a class="text-white-50 mb-2" href="price.php"><i class="fa fa-angle-right mr-2"></i>Precios</a>
+                                <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
                             </div>
                         </div>
                         <div class="col-sm-6 mb-5">

@@ -123,9 +123,9 @@
                             <div class="bg-white">
                                 <div class="d-flex align-items-center justify-content-between border-bottom border-primary p-4">
                                     <h1 class="display-4 mb-0">
-                                        <small class="align-top text-muted font-weight-medium" style="font-size: 22px; line-height: 45px;">$</small>49<small class="align-bottom text-muted font-weight-medium" style="font-size: 16px; line-height: 40px;">/Mo</small>
+                                        <small class="align-top text-muted font-weight-medium" style="font-size: 22px; line-height: 45px;">$</small>490<small class="align-bottom text-muted font-weight-medium" style="font-size: 16px; line-height: 40px;">/Mes</small>
                                     </h1>
-                                    <h5 class="text-primary text-uppercase m-0">Plan basico</h5>
+                                    <h5 class="text-primary text-uppercase m-0">Basico</h5>
                                 </div>
                                 <div class="p-4">
                                     <p><i class="fa fa-times text-danger mr-2"></i>Frances</p>
@@ -140,9 +140,9 @@
                             <div class="bg-white">
                                 <div class="d-flex align-items-center justify-content-between border-bottom border-primary p-4">
                                     <h1 class="display-4 mb-0">
-                                        <small class="align-top text-muted font-weight-medium" style="font-size: 22px; line-height: 45px;">$</small>99<small class="align-bottom text-muted font-weight-medium" style="font-size: 16px; line-height: 40px;">/Mo</small>
+                                        <small class="align-top text-muted font-weight-medium" style="font-size: 22px; line-height: 45px;">$</small>750<small class="align-bottom text-muted font-weight-medium" style="font-size: 16px; line-height: 40px;">/Mes</small>
                                     </h1>
-                                    <h5 class="text-primary text-uppercase m-0">Plan familiar</h5>
+                                    <h5 class="text-primary text-uppercase m-0">Familiar</h5>
                                 </div>
                                 <div class="p-4">
                                     <p><i class="fa fa-check text-success mr-2"></i>Frances</p>
@@ -156,9 +156,9 @@
                             <div class="bg-white">
                                 <div class="d-flex align-items-center justify-content-between border-bottom border-primary p-4">
                                     <h1 class="display-4 mb-0">
-                                        <small class="align-top text-muted font-weight-medium" style="font-size: 22px; line-height: 45px;">$</small>149<small class="align-bottom text-muted font-weight-medium" style="font-size: 16px; line-height: 40px;">/Mo</small>
+                                        <small class="align-top text-muted font-weight-medium" style="font-size: 22px; line-height: 45px;">$</small>980<small class="align-bottom text-muted font-weight-medium" style="font-size: 16px; line-height: 40px;">/Mes</small>
                                     </h1>
-                                    <h5 class="text-primary text-uppercase m-0">Plan VIP</h5>
+                                    <h5 class="text-primary text-uppercase m-0">VIP</h5>
                                 </div>
                                 <div class="p-4">
                                     <p><i class="fa fa-check text-success mr-2"></i>Frances</p>

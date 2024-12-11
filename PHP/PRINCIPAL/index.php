@@ -175,16 +175,18 @@ $result = $enlace->query($sql);
             <img src="img/ImagenPerfil.png" alt="" width="32" height="32" class="rounded-circle me-2">
             <strong>
                 <?php
-                $userId = $_SESSION['']; // Ajusta esto según cómo estés almacenando el ID del usuario 
+                $userId = $_SESSION['ID']; // Ajusta esto según cómo estés almacenando el ID del usuario 
                 // Realiza la consulta a la base de datos 
                 $sql = "SELECT Nombre, Apellido FROM registroidiomas WHERE ID = ?"; 
                 $stmt = $enlace->prepare($sql);
                 $stmt->bind_param("i", $userId); 
-                $stmt->execute(); $result = $stmt->get_result(); 
+                $stmt->execute(); 
+                $result = $stmt->get_result(); 
                 if ($result->num_rows > 0) 
                 { $row = $result->fetch_assoc();
-                     echo "<p style='color: #6c757d;'>" . htmlspecialchars($row["Nombre"]) . " " . htmlspecialchars($row["Apellido"]) . "</p>"; 
-                    } else { echo "<p style='color: #6c757d;'>No se encontraron resultados</p>"; 
+                     echo "<p style='color: #ffffff;'>" . htmlspecialchars($row["Nombre"]) . " " . htmlspecialchars($row["Apellido"]) . "</p>"; 
+                    } else { 
+                        echo "<p style='color: #6c757d;'>No se encontraron resultados</p>"; 
                     }
                 ?>
             </strong>

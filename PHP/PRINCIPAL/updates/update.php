@@ -16,7 +16,7 @@ class Update {
             die("Error en la preparación de la consulta: " . $this->conn->error);
         }
 
-        $stmt->bind_param("sssssi", $nombre, $apellido, $email, $contrasena, $usuario, $id);
+        $stmt->bind_param("Requisito", $nombre, $apellido, $email, $contrasena, $usuario, $id);
         if ($stmt->execute() === TRUE) {
             echo "Registro actualizado exitosamente.";
         } else {
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ID'])) {
 
     $updateInstance->updateRecord($nombre, $apellido, $email, $contrasena, $id, $usuario);
 
-    header("Location: testimonial.php");
+    header("location:../testimonial.php");
     exit();
 }
 

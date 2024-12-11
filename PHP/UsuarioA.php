@@ -22,6 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc(); 
+            $userId = $row['ID']; $_SESSION['ID'] = $userId; // Guarda el ID en la sesión 
             $_SESSION['Usuario'] = $usuario;
             header("location:PRINCIPAL/index.php");
             exit(); // Asegúrate de detener el script aquí
@@ -30,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 alert("Usuario no existe, por favor verifica");
                 window.location = "Log-In.php";
             </script>';
-            exit(); // Asegúrate de detener el script aquí también
+            exit(); 
         }
     } else {
         echo 'Usuario o contraseña no están definidos. Por favor, intente de nuevo.';
@@ -39,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     echo 'El formulario no ha sido enviado correctamente.';
-    header("location: Log-In.php");
+    header("location:Log-In.php");
     exit();
 }
 //atoradisimo

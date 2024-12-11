@@ -143,7 +143,7 @@
         <div class="container pt-5">
             <div class="row justify-content-center text-center">
                 <div class="col-lg-6">
-                    <h6 class="d-inline-block bg-light text-primary text-uppercase py-1 px-2">Nuestros Especialistas</h6>
+                    <h6 class="d-inline-block bg-light text-primary text-uppercase py-1 px-2">Nuestras Especialistas</h6>
                     <h1 class="mb-5">Profesores</h1>
                 </div>
             </div>

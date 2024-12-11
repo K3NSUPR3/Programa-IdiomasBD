@@ -1,5 +1,6 @@
 <?php
 include 'ConexionSeq.php';
+session_start();
 
 if (isset($_POST['maestro'])) {
     $nombre = mysqli_real_escape_string($enlace, $_POST['nombre']);
@@ -7,22 +8,21 @@ if (isset($_POST['maestro'])) {
     $Leng = mysqli_real_escape_string($enlace, $_POST['Lenguaje']);
     $Exp = mysqli_real_escape_string($enlace, $_POST['Exp']);
 
-    // Depuración: Verifica si los datos se reciben correctamente
     echo "Nombre: $nombre, Email: $email, Lenguaje: $Leng, Experiencia: $Exp";
 
     // Hacer el insert de datos
-    $insertarDatos = "INSERT INTO solicitudmaestro (ID_Solicitante,Nombre, CorreoE, Lenguaje, Experiencia) 
-                      VALUES ('','$nombre', '$email', '$Leng', '$Exp')";
+    $insertarDatos = "INSERT INTO solicitudmaestro (Nombre, CorreoE, Lenguaje, Experiencia) 
+                      VALUES ('$nombre', '$email', '$Leng', '$Exp')";
 
     if (mysqli_query($enlace, $insertarDatos)) {
         echo '<script type="text/javascript">
-                alert("Exito");
+                alert("Solicitud enviada con éxito.");
+                window.location = "../contact.php";
               </script>';
-        header("location: ../contact.php");
         exit();
     } else {
         echo '<script type="text/javascript">
-                alert("Inténtalo de nuevo: ' . mysqli_error($enlace) . '");
+                alert("Error: ' . mysqli_error($enlace) . '");
               </script>';
     }
     mysqli_close($enlace);
