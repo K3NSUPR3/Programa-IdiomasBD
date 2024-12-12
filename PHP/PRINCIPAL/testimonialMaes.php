@@ -183,6 +183,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
     //libreriras necesarias XD
     ?>
     <a href="testimonial.php" class="btn btn-primary btn rounded mb-3">Registros</a>
+    <a href="testimonialIns.php" class="btn btn-primary btn rounded mb-3">Inscripciones</a>
 
 <!--Inicio Inscripciones-->
 <div class="container mt-5">
@@ -191,14 +192,14 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
             <table class="table table-bordered table-hover col-12" id="example" id="TablaR">
                 <thead>
                     <tr>
-                        <th scope="col">NoControl</th>
+                       <th scope="col">No Control</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellidos</th>
                         <th scope="col">Contraseña</th>
                         <th scope="col">Correo </th>
                         <th scope="col">Sueldo</th>
                         <th scope="col">Fecha Ingreso</th>
-                        <th scope="col">Telefono</th>
+                        <th scope="col">Teléfono</th>
                     </tr>
                 </thead>
             <tbody>
@@ -217,10 +218,8 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
                         exit();
                     }
                     
-
-
                 if ($enlace instanceof mysqli) {
-                 $sql = "SELECT NoControl,Nombre,Apellidos,Contraseña,Correo,Sueldo,FechaIn,Telefono FROM profesor";
+                 $sql = "SELECT Nombre,Apellidos,Contraseña,Correo,Sueldo,FechaIn,Telefono FROM profesor";
                     
             //       
                 } else {
@@ -243,25 +242,24 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
                 }
 
 
-
-            
-
         if ($result === false) { die("Error en la consulta: " . $enlace->error); }
 
                 if ($result->num_rows > 0) { 
                     while($row = $result->fetch_assoc()) { 
-                        echo "<tr>";
+                        echo "<tr>"; 
                         echo "<form action = 'updates/updateIns.php' method = 'POST'>";
                         echo "<td style='color: #007bff; font-weight: bold;'>" . htmlspecialchars($row["NoControl"]) . "</td>"; 
-                        echo "<td style='color: #6c757d;'>" . htmlspecialchars($row["NoControl"]) . "</td>"; 
                         echo "<td style='color: #6c757d;'>" . htmlspecialchars($row["Nombre"]) . "</td>"; 
                         echo "<td style='color: #17a2b8;'>" . htmlspecialchars($row["Apellidos"]) . "</td>"; 
                         echo "<td style='color: #dc3545;'>" . htmlspecialchars($row["Contraseña"]) . "</td>"; 
                         echo "<td style='color: #ffc107;'>" . htmlspecialchars($row["Correo"]) . "</td>"; 
-                        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Plan"]) . "</td>";
-                        echo "<td style='color: #ffc107;'>" . htmlspecialchars($row["Id_Insc"]) . "</td>"; 
+                        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Sueldo"]) . "</td>";
+                        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["FechaIn"]) . "</td>";
+                        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Telefono"]) . "</td>";
                         echo "<td class='btn-group'>
-                         <a href='testimonialIns.php?id=" . htmlspecialchars($row["Id_Insc"]) . "' 
+                        <button type='button' class='btn btn-warning btn-sm' onclick=\"abrirModalEditarUsuario('" . htmlspecialchars($row["NoControl"]) . "','" . htmlspecialchars($row["Nombre"]) . "', '" . htmlspecialchars($row["Apellidos"]) . "', '" . htmlspecialchars($row["Correo"]) . "','" . htmlspecialchars($row["Sueldo"]) . "','" . htmlspecialchars($row["FechaIn"]) . "', '" . htmlspecialchars($row["Telefono"]) . "')\"><i class='fa-solid fa-pen-to-square'></i></button>
+                        <!--Eliminado-->
+                        <a href='testimonialMaes.php?id=" . htmlspecialchars($row["NoControl"]) . "' 
                             class='btn btn-danger btn-sm' 
                             title='Eliminar' 
                             onclick='return advertencia()'>
@@ -283,47 +281,47 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
 
             <!--Modelo Ins-->
 <!-- Model -->
-<div class="modal" tabindex="-1" id="editUserModalIns">
+<div class="modal" tabindex="-1" id="editUserModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modificar Incripción</h5>
+        <h5 class="modal-title">Modificar Usuario</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="editInsForm" action="updates/updateIns.php" method="post">
-          <input type="hidden" name="ID" id="IdnombreIns">
+        <form id="editUserForm" action="updates/update.php" method="post">
+          <input type="hidden" name="ID" id="editUserID">
           <div class="form-group">
-            <label for="Idnombre">Nombre:</label>
-            <input type="text" class="form-control" name="Nombre" id="editNombreIns">
+            <label for="editNombre">Nombre:</label>
+            <input type="text" class="form-control" name="Nombre" id="editNombre">
           </div>
           <div class="form-group">
-            <label for="editCorreoIns">Correo Eléctronico:</label>
-            <input type="email" class="form-control" name="Correo" id="editCorreoIns">
+            <label for="editApellido">Apellido:</label>
+            <input type="text" class="form-control" name="Apellido" id="editApellido">
           </div>
           <div class="form-group">
-            <label for="editFechaIns">Fecha</label>
-            <input type="date" class="form-control" name="Fecha" id="editFechaIns">
+            <label for="editApellido">Contraseña:</label>
+            <input type="text" class="form-control" name="Apellido" id="editContra">
           </div>
           <div class="form-group">
-            <label for="editHorarioIns">Horario:</label>
-            <input type="text" class="form-control" name="Horario" id="editHorarioIns">
+            <label for="editEmail">Correo Eléctronico:</label>
+            <input type="email" class="form-control" name="Email" id="editEmail">
           </div>
           <div class="form-group">
-            <label for="editIdiomaIns">Idioma:</label>
-            <input type="text" class="form-control" name="Idioma" id="editIdiomaIns">
+            <label for="editContraseña">Sueldo:</label>
+            <input type="text" class="form-control" name="Contraseña" id="editSueldo">
           </div>
           <div class="form-group">
-            <label for="editPlan">Plan:</label>
-            <input type="text" class="form-control" name="Plan" id="editPlan">
+            <label for="editUsuario">Fecha Incripcion:</label>
+            <input type="text" class="form-control" name="Usuario" id="editFIns">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" onclick="document.getElementById('editInsForm').submit();">Guardar Cambios</button>
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('editUserForm').submit();">Guardar Cambios</button>
       </div>
     </div>
   </div>

@@ -10,7 +10,7 @@ if (!empty($_GET["id"])) {
     }
 
     // Prepara y ejecuta la consulta para eliminar de la tabla `inscripciones`
-    $stmt = $enlace->prepare("DELETE FROM profesor WHERE Id_Insc = ?");
+    $stmt = $enlace->prepare("DELETE FROM inscripciones WHERE Id_Insc = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
 

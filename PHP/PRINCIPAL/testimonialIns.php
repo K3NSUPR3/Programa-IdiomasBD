@@ -291,7 +291,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) { // pf
         <form id="editInsForm" action="updates/updateIns.php" method="post">
           <input type="hidden" name="ID" id="IdnombreIns">
           <div class="form-group">
-            <label for="Idnombre">Nombre:</label>
+            <label for="editNombreIns">Nombre:</label>
             <input type="text" class="form-control" name="Nombre" id="editNombreIns">
           </div>
           <div class="form-group">
