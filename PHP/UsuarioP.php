@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['Usuario'] = $usuario;
                 echo '<script type="text/javascript">
                         alert("Ingreso");
-                        window.location = "PRINCIPAL/contact.php";
+                        window.location = "PRINCIPAL/indexM.php";
                       </script>';
                 exit();
             } else {

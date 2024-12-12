@@ -27,6 +27,9 @@
                 <div class="fl-flex-label mb-4 px-2 col-12 col-md-6">
                     <input type="text" placeholder="Usuario" class="input input__text" name="txtusuario">
                 </div>
+                <div class="fl-flex-label mb-4 px-2 col-12 col-md-6">
+                    <input type="email" minlength="8" placeholder="Correo" class="input input__text" name="txtcorreo">
+                </div>
                 <!-- Campo Contraseña -->
                 <div class="fl-flex-label mb-4 px-2 col-12 col-md-6">
                     <input type="password" placeholder="Contraseña" class="input input__text" name="txtcontrasena">
@@ -69,16 +72,17 @@ function esAdministrador($enlace, $usuario) {
     $usuarioDatos = $result->fetch_assoc();
     $stmt->close();
     
-    return $usuarioDatos && $usuarioDatos['TipoUsuario'] === 'administrador';
+    return $usuarioDatos && $usuarioDatos['TipoUsuario'] == 'administrador';
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["btnregistrar"])) {
     // Verificar que todos los campos estén completos
-    if (!empty($_POST["txtnombre"]) && !empty($_POST["txtapellido"]) && !empty($_POST["txtusuario"]) && !empty($_POST["txtcontrasena"]) && !empty($_POST["TipoUsuario"])) {
+    if (!empty($_POST["txtnombre"]) && !empty($_POST["txtapellido"]) && !empty($_POST["txtusuario"]) && !empty($_POST["txtcorreo"]) && !empty($_POST["txtcontrasena"]) && !empty($_POST["TipoUsuario"])) {
         $nombre = htmlspecialchars($_POST["txtnombre"]);
         $apellido = htmlspecialchars($_POST["txtapellido"]);
         $usuario = htmlspecialchars($_POST["txtusuario"]);
-        $contrasena = password_hash($_POST["txtcontrasena"], PASSWORD_DEFAULT); // Encriptar la contraseña
+        $contrasena = htmlspecialchars($_POST["txtcontrasena"]);
+        $correo = htmlspecialchars($_POST["txtcorreo"]);
         $tipoUsuario = htmlspecialchars($_POST["TipoUsuario"]);
 
         // Verificar si el usuario actual es administrador
@@ -93,8 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["btnregistrar"])) {
                 echo "<p style='color: red;'>El nombre de usuario ya está en uso. Por favor, elige otro.</p>";
             } else {
                 // Insertar nuevo usuario
-                $stmt = $enlace->prepare("INSERT INTO registroidiomas (Nombre, Apellido, Usuario, Contraseña, TipoUsuario) VALUES (?, ?, ?, ?, ?)");
-                $stmt->bind_param("sssss", $nombre, $apellido, $usuario, $contrasena, $tipoUsuario);
+                $stmt = $enlace->prepare("INSERT INTO registroidiomas (Nombre, Apellido, Usuario,Email,Contraseña, TipoUsuario) VALUES (?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("ssssss", $nombre, $apellido, $usuario,$correo, $contrasena, $tipoUsuario);
 
                 if ($stmt->execute()) {
                     echo "<p style='color: green;'>Usuario registrado correctamente.</p>";
@@ -111,7 +115,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["btnregistrar"])) {
         echo "<p style='color: red;'>Por favor, completa todos los campos.</p>";
     }
 }
-
-
 ?>
-

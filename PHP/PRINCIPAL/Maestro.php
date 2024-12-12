@@ -1,5 +1,6 @@
 <?php
 include 'ConexionSeq.php';
+
 session_start();
 
 if (isset($_POST['maestro'])) {
@@ -8,12 +9,12 @@ if (isset($_POST['maestro'])) {
     $Leng = mysqli_real_escape_string($enlace, $_POST['Lenguaje']);
     $Exp = mysqli_real_escape_string($enlace, $_POST['Exp']);
 
-    echo "Nombre: $nombre, Email: $email, Lenguaje: $Leng, Experiencia: $Exp";
+    echo "Nombre: $nombre, Email: $email, Lenguaje: $Leng, Experiencia: $Exp<br>";
 
     // Hacer el insert de datos
-    $insertarDatos = "INSERT INTO solicitudmaestro (Nombre, CorreoE, Lenguaje, Experiencia) 
-                      VALUES ('$nombre', '$email', '$Leng', '$Exp')";
-
+    $insertarDatos = "INSERT INTO solicitudmaestro (Id_Solicitud,Nombre, CorreoE, Lenguaje, Experiencia) 
+                      VALUES ('','$nombre', '$email', '$Leng', '$Exp')";
+                      
     if (mysqli_query($enlace, $insertarDatos)) {
         echo '<script type="text/javascript">
                 alert("Solicitud enviada con éxito.");

@@ -9,7 +9,7 @@ if (!isset($_SESSION['Usuario'])||empty($_SESSION['Usuario'])){
     echo '
     <script type="text/javascript">
         alert("Debes iniciar sesión");
-        window.location ="../Log-In.php"; 
+        window.location ="../Log-InP.php"; 
     </script>
     ';// Corregirlo aquí
     session_destroy();
@@ -101,14 +101,6 @@ $result = $enlace->query($sql);
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav m-auto py-0">
-                    <a href="#" class="nav-item nav-link active">INICIO</a>
-                    <a href="about.php" class="nav-item nav-link">Acerca de</a>
-                    <a href="service.php" class="nav-item nav-link">Servicios</a>
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown">Paginas</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="appointment.php" class="dropdown-item">Quejas y Sugerencias</a>
-                            <a href="opening.php" class="dropdown-item">Disponibilidad</a>
                         </div>
                     </div>
                 </div>
@@ -127,34 +119,11 @@ $result = $enlace->query($sql);
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="service.php" class="nav-link active" aria-current="page">
+            <a href="contact.php" class="nav-link active" aria-current="page">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                Inscripciones
+                Recursos
             </a>
         </li>
-        <li>
-            <a href="price.php" class="nav-link text-white">
-                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                Cursos
-            </a>
-        </li>
-        <li>
-            <a href="ModifDatos.php" class="nav-link text-white">
-                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                Modificar 
-            </a>
-        </li>
-        <li>
-            <a href="opening.php" class="nav-link text-white">
-                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                Horario
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link text-white">
-                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                Boleta
-            </a>
         </li>
         <li>
             <a href="http://cleitmorelia.mx/convocatorias" class="nav-link text-white">
@@ -175,11 +144,18 @@ $result = $enlace->query($sql);
             <img src="img/ImagenPerfil.png" alt="" width="32" height="32" class="rounded-circle me-2">
             <strong>
                 <?php
-                $userId = $_SESSION['ID']; // Ajusta esto según cómo estés almacenando el ID del usuario 
+               
                 // Realiza la consulta a la base de datos 
+                if (isset($_SESSION['ID'])) {
+                    $userId = $_SESSION['ID'];
+                } else {
+                  
+                    echo "Profesor";
+                }
+                
                 $sql = "SELECT Nombre, Apellido FROM registroidiomas WHERE ID = ?"; 
                 $stmt = $enlace->prepare($sql);
-                $stmt->bind_param("i", $userId); 
+                $stmt->bind_param("i", $usId); 
                 $stmt->execute(); 
                 $result = $stmt->get_result(); 
                 if ($result->num_rows > 0) 
@@ -197,7 +173,7 @@ $result = $enlace->query($sql);
             <li><a class="dropdown-item" href="#">Perfil</a></li>
             <li><hr class="dropdown-divider"></li>
             <!--verificar aqui-->
-            <li><a class="dropdown-item" href="../Log-In.php">Cerrar Sesión</a></li>
+            <li><a class="dropdown-item" href="../Log-InP.php">Cerrar Sesión</a></li>
         </ul>
     </div>
 </div>
@@ -334,15 +310,7 @@ $result = $enlace->query($sql);
                 </div>
                 <div class="col-lg-6 pl-lg-5">
                     <div class="row">
-                        <div class="col-sm-6 mb-5">
-                            <h5 class="text-white text-uppercase mb-4">Enlaces Rápidos</h5>
-                            <div class="d-flex flex-column justify-content-start">
-                               <a class="text-white-50 mb-2" href="index.php"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
-                                <a class="text-white-50 mb-2" href="about.php"><i class="fa fa-angle-right mr-2"></i>Acerca de Nosotros</a>
-                                <a class="text-white-50 mb-2" href="service.php"><i class="fa fa-angle-right mr-2"></i>Nuestros Cursos</a>
-                                <a class="text-white-50 mb-2" href="price.php"><i class="fa fa-angle-right mr-2"></i>Precios</a>
-                            </div>
-                        </div>
+                        
                         <div class="col-sm-6 mb-5">
                             <h5 class="text-white text-uppercase mb-4">Nuestros Servicios</h5>
                             <div class="d-flex flex-column justify-content-start">
@@ -356,12 +324,7 @@ $result = $enlace->query($sql);
                         <div class="col-sm-12 mb-5">
                             <h5 class="text-white text-uppercase mb-4">Novedades</h5>
                             <div class="w-100">
-                                <div class="input-group">
-                                    <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="Your Email Address">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary px-4">iniciar-sesion</button>
-                                    </div>
-                                </div>
+                            <p>Bienvenido Profesor</p>
                             </div>
                         </div>
                     </div>

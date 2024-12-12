@@ -133,9 +133,7 @@ include '../ConexionSeq.php';
             <table class="table table-bordered table-hover col-12" id="example">
                 <thead>
                     <tr>
-                    <th scope="cot">Profesor</th> 
                         <th scope="cot">Alumno</th>
-                        <th scope="col">Grupo</th>
                         <th scope="col">Unidad 1</th>
                         <th scope="col">Unidad 2</th>
                         <th scope="col">Unidad 3</th>
@@ -147,17 +145,14 @@ include '../ConexionSeq.php';
             <tbody>
             <tbody> 
             <?php 
-$sql = "SELECT ID_Expediente, Expediente_Profesor, Expediente_Alumno, Expediente_Grupo, U1, U2, U3, U4, U5, Prom FROM expediente"; 
+$sql = "SELECT NoControl, U1, U2, U3, U4, U5, Promedio FROM calificacionesa"; 
 $result = $enlace->query($sql); 
 
 if ($result->num_rows > 0) { 
     while($row = $result->fetch_assoc()) { 
         echo "<tr>";
         echo "<form action = 'update.php' method = 'post'>";
-        echo "<td style='color: #000000; font-weight: bold;'>" . htmlspecialchars($row["ID_Expediente"]) . "</td>"; 
-        echo "<td style='color: #000000;'>" . htmlspecialchars($row["Expediente_Profesor"]) . "</td>"; 
         echo "<td style='color: #000000;'>" . htmlspecialchars($row["Expediente_Alumno"]) . "</td>"; 
-        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Expediente_Grupo"]) . "</td>";
         echo "<td style='color: #28a745;'>" . htmlspecialchars($row["U1"]) . "</td>";
         echo "<td style='color: #28a745;'>" . htmlspecialchars($row["U2"]) . "</td>";
         echo "<td style='color: #28a745;'>" . htmlspecialchars($row["U3"]) . "</td>";
@@ -180,41 +175,6 @@ $enlace->close();
       </tbody>
 </table>
 <!-- Model -->
-<div class="modal" tabindex="-1" id="editUserModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modificar Usuario</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="editUserForm" action="update.php" method="post">
-          <input type="hidden" name="ID" id="editUserID">
-          <div class="form-group">
-            <label for="editNombre">Nombre:</label>
-            <input type="text" class="form-control" name="Nombre" id="editNombre">
-          </div>
-          <div class="form-group">
-            <label for="editContraseña">Contraseña:</label>
-            <input type="text" class="form-control" name="Contraseña" id="editContraseña">
-          </div>
-          <div class="form-group">
-            <label for="editUsuario">Usuario:</label>
-            <input type="text" class="form-control" name="Usuario" id="editUsuario">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" onclick="document.getElementById('editUserForm').submit();">Guardar Cambios</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
     <!-- Footer Start -->
     <div class="footer container-fluid position-relative bg-dark py-5" style="margin-top: 90px;">
         <div class="container pt-5">

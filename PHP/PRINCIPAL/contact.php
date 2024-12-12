@@ -144,7 +144,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav m-auto py-0">
-                    <a href="index.php" class="nav-item nav-link">Inicio</a> 
+                    <a href="indexM.php" class="nav-item nav-link">Inicio</a> 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Opciones</a>
                         <div class="dropdown-menu rounded-0 m-0">
@@ -192,8 +192,11 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
                         <h6 class="d-inline-block text-white text-uppercase bg-primary py-1 px-2">Contacto</h6>
                         <h1 class="mb-4">Contáctanos para formar parte de nuestro Equipo</h1>
                         <div id="success"></div>
-                        <form action="Maestro.php" method="POST" name="Solicitud Enviada" id="contactForm" novalidate="novalidate">
-                            <div class="form-row">
+                        <form action="Maestro.php" method="post" name="maestro" id="contactForm" novalidate="novalidate">
+                         <?php
+                         include "ConexionSeq.php";
+                         ?>
+                        <div class="form-row">
                                 <div class="col-sm-6 control-group">
                                     <input type="text" class="form-control border-0 p-4" minlength="15" id="name" name="nombre" placeholder="Nombre" required="required" data-validation-required-message="Pon tu nombre" />
                                     <p class="help-block text-danger"></p>
@@ -208,7 +211,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <textarea class="form-control border-0 py-3 px-4" minlength="100" rows="3" id="message" name="Exp" placeholder="Experiencia" required="required" data-validation-required-message="Escribe tu experiencia"></textarea>
+                                <input type="text" class="form-control border-0 py-3 px-4" minlength="100" rows="3" id="message" name="Exp" placeholder="Experiencia" required="required" data-validation-required-message="Escribe tu experiencia"></input>
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div>

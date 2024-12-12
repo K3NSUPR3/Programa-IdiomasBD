@@ -338,7 +338,7 @@
                                 <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Alemán</a>
                                 <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Inglés</a>
                                 <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Ruso</a>
-                                <a class="text-white-50" href="#"><i class="fa fa-angle-right mr-2"></i>Italiano</a>
+                                <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Italiano</a>
                             </div>
                         </div>
                         <div class="col-sm-12 mb-5">

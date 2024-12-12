@@ -16,7 +16,7 @@ class Update {
             die("Error en la preparación de la consulta: " . $this->conn->error);
         }
 
-        $stmt->bind_param("Requisito", $nombre, $apellido, $email, $contrasena, $usuario, $id);
+        $stmt->bind_param("sssssi", $nombre, $apellido, $email, $contrasena, $usuario, $id);
         if ($stmt->execute() === TRUE) {
             echo "Registro actualizado exitosamente.";
         } else {
