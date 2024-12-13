@@ -19,7 +19,7 @@ include '../ConexionSeq.php';
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
         
-    <title>Editar Registros</title>
+    <title>Editar Calificaciones</title>
     <style> .btn-group { display: flex; gap: 5px; }     
     </style>
  
@@ -140,41 +140,104 @@ include '../ConexionSeq.php';
                         <th scope="col">Unidad 4</th>
                         <th scope="col">Unidad 5</th>
                         <th scope ="col">Promedio</th>
+                        <th scope ="col">Grupo</th>
                     </tr>
                 </thead>
             <tbody>
             <tbody> 
             <?php 
-$sql = "SELECT NoControl, U1, U2, U3, U4, U5, Promedio FROM calificacionesa"; 
+$sql = "SELECT NoControl, U1, U2, U3, U4, U5, Promedio, Grupo FROM calificacionesa"; 
 $result = $enlace->query($sql); 
 
 if ($result->num_rows > 0) { 
     while($row = $result->fetch_assoc()) { 
         echo "<tr>";
-        echo "<form action = 'update.php' method = 'post'>";
-        echo "<td style='color: #000000;'>" . htmlspecialchars($row["Expediente_Alumno"]) . "</td>"; 
+        echo "<form action = 'updates/updateCalif.php' method = 'post'>";
+        echo "<td style='color: #000000;'>" . htmlspecialchars($row["NoControl"]) . "</td>"; 
         echo "<td style='color: #28a745;'>" . htmlspecialchars($row["U1"]) . "</td>";
         echo "<td style='color: #28a745;'>" . htmlspecialchars($row["U2"]) . "</td>";
         echo "<td style='color: #28a745;'>" . htmlspecialchars($row["U3"]) . "</td>";
         echo "<td style='color: #28a745;'>" . htmlspecialchars($row["U4"]) . "</td>";
         echo "<td style='color: #28a745;'>" . htmlspecialchars($row["U5"]) . "</td>";
-        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Prom"]) . "</td>"; 
-        echo "<td class='btn-group'> 
-        <button type='button' class='btn btn-warning btn-sm' onclick=\"abrirModalEditarUsuario('" . htmlspecialchars($row["Expediente_Alumno"]) . "', '" . htmlspecialchars($row["U1"]) . "', '" . htmlspecialchars($row["U1"]) . "', '" . htmlspecialchars($row["U2"]) . "', '" . htmlspecialchars($row["U3"]) . "', '" . htmlspecialchars($row["U4"]) . "', '" . htmlspecialchars($row["U5"]) . "', '" . htmlspecialchars($row["Prom"]) . "')\"><i class='fa-solid fa-pen-to-square'></i></button>
+        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Promedio"]) . "</td>"; 
+        echo "<td style='color: #000000;'>" . htmlspecialchars($row["Grupo"]) . "</td>"; 
+        echo "<td class='btn-group'>
+        <button type='button' class='btn btn-warning btn-sm' onclick=\"abrirModalEditarCalif('" .
+        htmlspecialchars($row["NoControl"]) . "', 
+        '" . htmlspecialchars($row["U1"]) . "',
+        '" . htmlspecialchars($row["U2"]) . "', 
+        '" . htmlspecialchars($row["U3"]) . "', 
+        '" . htmlspecialchars($row["U4"]) . "',
+         '" . htmlspecialchars($row["U5"]) . "',
+          '" . htmlspecialchars($row["Promedio"]) . "',
+          '" . htmlspecialchars($row["Grupo"]) . "' )\"><i class='fa-solid fa-pen-to-square'></i></button>
           </td>";
          echo "</form>";
         echo "</tr>"; 
     } 
 } else { 
-    echo "<tr><td colspan='6' style='text-align: center; color: #6c757d;'>No hay datos</td></tr>"; 
+    echo "<tr><td colspan='8' style='text-align: center; color: #6c757d;'>No hay datos</td></tr>"; 
 } 
 $enlace->close();
 ?>
-
             </tbody>
       </tbody>
 </table>
 <!-- Model -->
+<div class="modal" tabindex="-1" id="editModalCalif">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modificar Calificaciones</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editFormCalif" action="updates/updateCalif.php" method="post">
+          <input type="hidden" name="IdCalifica" id="editCalif">
+          <div class="form-group">
+            <label for="NoControl">NoControl:</label>
+            <input type="text" class="form-control" name="NoControl" id="editClaveCalif" readonly>
+          </div>
+          <div class="form-group">
+            <label for="editU1">U1:</label>
+            <input type="text" minlenght="1" maxlenght="2"class="form-control" name="U1" id="editU1">
+          </div>
+          <div class="form-group">
+            <label for="editU2">U2:</label>
+            <input type="text" minlength="1" maxlength="2"class="form-control" name="U2" id="editU2">
+          </div>
+          <div class="form-group">
+            <label for="editU3">U3:</label>
+            <input type="text"  minlenght="1" maxlength="2" class="form-control" name="U3" id="editU3">
+          </div>
+          <div class="form-group">
+            <label for="editU4">U4:</label>
+            <input type="text"  minlength="1" maxlength="2"class="form-control" name="U4" id="editU4">
+          </div>
+          <div class="form-group">
+            <label for="editU5">U5:</label>
+            <input type="text"  minlength="1" maxlength="2"class="form-control" name="U5" id="editU5">
+          </div>
+          <div class="form-group">
+            <label for="editProm">Promedio:</label>
+            <input type="number" class="form-control" name="Promedio" id="editProm">
+          </div>
+          <div class="form-group">
+            <label for="editGrupo">Grupo:</label>
+            <input type="number" class="form-control" name="Grupo" id="editGrupo" readonly>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('editFormCalif').submit();"> Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div> 
+            <!--Fin Modelo-->
     <!-- Footer Start -->
     <div class="footer container-fluid position-relative bg-dark py-5" style="margin-top: 90px;">
         <div class="container pt-5">
@@ -267,14 +330,17 @@ $enlace->close();
         }
     </script>
 
-    <!-- Abrir ventana culera -->
+    
     <script>
-            function abrirModalEditarUsuario(nombre, apellido, id, usuario) {
-                document.getElementById('editUserID').value = id;
-                document.getElementById('editNombre').value = nombre;
-                document.getElementById('editApellido').value = apellido;
-                document.getElementById('editUsuario').value = usuario;
-                $('#editUserModal').modal('show');
+            function abrirModalEditarCalif(NoControl,U1,U2,U3,U4,U5,Promedio) {
+                document.getElementById('editClaveCalif').value = NoControl;
+                document.getElementById('editU1').value = U1;
+                document.getElementById('editU2').value = U2;
+                document.getElementById('editU3').value = U3;
+                document.getElementById('editU4').value =  U4;
+                document.getElementById('editU5').value =  U5;
+                document.getElementById('editProm').value = Promedio;
+                $('#editModalCalif').modal('show');
 }
 </script>
 

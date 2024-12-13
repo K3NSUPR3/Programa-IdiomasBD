@@ -87,6 +87,34 @@ if(isset($_POST['botonInsc'])){
 }
 
 mysqli_close($enlace);
+
+// if ($enlace->connect_error) { die("Conexión fallida: " . $enlace->connect_error); } 
+// // Procesar el formulario cuando se envía 
+// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["inscribir"])) 
+// { $nombre = mysqli_real_escape_string($enlace, $_POST['nombre']); 
+//     $email = mysqli_real_escape_string($enlace, $_POST['CorreoE']); 
+//     $fecha = mysqli_real_escape_string($enlace, $_POST['Fecha']); 
+//     $horario = mysqli_real_escape_string($enlace, $_POST['Horario']); 
+//     $idioma = mysqli_real_escape_string($enlace, $_POST['Idioma']); 
+//     $plan = mysqli_real_escape_string($enlace, $_POST['Plan']); 
+//     // Determinar el monto basado en el plan
+//      $monto = 0.0; if ($plan == "PB") { $monto = 490.0; } 
+//      elseif ($plan == "PF") { $monto = 750.0; } 
+//      elseif ($plan == "PV") { $monto = 980.0; } 
+//      // Insertar los datos en la tabla inscripciones 
+//      $insertarDatos = "INSERT INTO inscripciones (Nombre, Correo, Fecha, Horario, Idioma, Plan) VALUES ('$nombre', '$email', '$fecha', '$horario', '$idioma', '$plan')"; 
+//      if (mysqli_query($enlace, $insertarDatos)) { // Obtener el último ID de inserción 
+//         echo '<script type="text/javascript"> window.location = "service.php"; alert("Inscripción y pago realizados con éxito."); </script>';
+//         $idInscripcion = mysqli_insert_id($enlace); 
+//         // Insertar los datos en la tabla pago 
+//         $insertarPago = "INSERT INTO pago (IDPago, IDInscripcion, Id_Solicitante, FechaPago, Idioma, Monto) VALUES (NULL, '$idInscripcion', '$nombre', '$fecha', '$idioma', '$monto')"; 
+//         if (mysqli_query($enlace, $insertarPago)) { echo '<script type="text/javascript"> window.location = "service.php"; alert("Inscripción y pago realizados con éxito."); </script>'; } 
+//         else { echo '<script type="text/javascript"> alert("Error al registrar el pago: ' . mysqli_error($enlace) . '"); </script>'; } 
+//     } else { echo '<script type="text/javascript"> alert("Error al registrar la inscripción: ' . mysqli_error($enlace) . '"); </script>'; }
+    
+//     } 
+//     mysqli_close($enlace);
+
 }
 
 ?>

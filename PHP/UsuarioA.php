@@ -21,19 +21,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $result = $stmt->get_result();
 
+
         if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc(); 
-            $userId = $row['ID']; $_SESSION['ID'] = $userId; // Guarda el ID en la sesión 
-            $_SESSION['Usuario'] = $usuario;
-            header("location:PRINCIPAL/index.php");
-            exit(); // Asegúrate de detener el script aquí
+            $rowQ = $result->fetch_assoc();
+            $tipoUsuario = $rowQ['TipoUsuario'];
+
+            if ($result->num_rows > 0 && $tipoUsuario == 'alumno')    {
+                $row = $result->fetch_assoc(); 
+                $userId = $row['ID']; $_SESSION['ID'] = $userId; // Guarda el ID en la sesión 
+                $_SESSION['Usuario'] = $usuario;
+                header("location:PRINCIPAL/index.php");
+                exit(); // Asegúrate de detener el script aquí
+            } else {
+                echo '<script>
+                    alert("Usuario no existe, por favor verifica");
+                    window.location = "Log-In.php";
+                </script>';
+                exit(); 
+            }
+
         } else {
             echo '<script>
-                alert("Usuario no existe, por favor verifica");
-                window.location = "Log-In.php";
-            </script>';
-            exit(); 
+                    alert("Usuario o contraseña incorrectos, por favor verifica");
+                    window.location = "Log-In.php";
+                  </script>';
+            exit();
         }
+
     } else {
         echo 'Usuario o contraseña no están definidos. Por favor, intente de nuevo.';
         header("location:Log-In.php");

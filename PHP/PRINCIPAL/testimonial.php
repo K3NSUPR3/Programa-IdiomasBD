@@ -181,11 +181,12 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
     include "ControlEliminar.php";
     ?>
 
-
+    
     <a href="AñadirAlumno.php" class="btn btn-primary btn rounded mb-3"><i class="fa-solid fa-plus"></i> &nbsp;Añadir</a>
     <a href="#Guardando" id="guardarBtn" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: blue; text-decoration: none; border-radius: 5px; transition: background-color 0.3s;">Guardar</a> 
-    <a href="TestimonialIns.php" class="btn btn-primary btn rounded mb-3">Inscripciones</a>
+    <a href="testimonialIns.php" class="btn btn-primary btn rounded mb-3">Inscripciones</a>
     <a href="testimonialMaes.php" class="btn btn-primary btn rounded mb-3">Maestros</a>
+    <a href="testimonialCur.php" class="btn btn-primary btn rounded mb-3">Cursos</a>
     <!--Inicio Registro-->
     <div class="container mt-5">
         <div title="TABLA">
@@ -344,46 +345,51 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+<a href="#" class="btn btn-lg btn-primary back-to-top">
+    <i class="fa fa-angle-double-up"></i>
+</a>
 
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/counterup/counterup.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/tempusdominus/js/moment.min.js"></script>
+<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
+<!-- Contact Javascript File -->
+<script src="mail/jqBootstrapValidation.min.js"></script>
+<script src="mail/contact.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-    <script> 
-        function advertencia(){
-            var notif=confirm("Estas seguro que desea eliminar?");
-            return notif;
-        }
-    </script>
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
 
-    <!--Ventana Registro-->
-    <script>
-            function abrirModalEditarUsuario(nombre, apellido, email, contrasena, id, usuario) {
-                document.getElementById('editUserID').value = id;
-                document.getElementById('editNombre').value = nombre;
-                document.getElementById('editApellido').value = apellido;
-                document.getElementById('editEmail').value = email;
-                document.getElementById('editContraseña').value = contrasena;
-                document.getElementById('editUsuario').value = usuario;
-                $('#editUserModal').modal('show');
-     }
-    </script>
+<!-- Función de Confirmación -->
+<script> 
+    function advertencia() {
+        return confirm("¿Estás seguro que deseas eliminar?");
+    }
+</script>
+
+<!-- Ventana Registro -->
+<script>
+    function abrirModalEditarProfesor(id, nombre, apellidos, contraseña, email, sueldo, fecha, telefono) {
+        document.getElementById('editProfesorID').value = id || '';
+        document.getElementById('editProfesorNombre').value = nombre || '';
+        document.getElementById('editProfesorApellidos').value = apellidos || '';
+        document.getElementById('editProfesorContraseña').value = contraseña || '';
+        document.getElementById('editProfesorEmail').value = email || '';
+        document.getElementById('editProfesorSueldo').value = sueldo || '';
+        document.getElementById('editProfesorFecha').value = fecha || '';
+        document.getElementById('editProfesorTel').value = telefono || '';
+
+        // Mostrar el modal
+        $('#editProfesorModal').modal('show');
+    }
+</script>
+
     
     
 

@@ -1,31 +1,21 @@
 <?php
-include 'ConexionSeq.php';
+// Maestro.php
+require 'Conexion_Be.php';
 
-session_start();
+$errors = array();
 
-if (isset($_POST['maestro'])) {
-    $nombre = mysqli_real_escape_string($enlace, $_POST['nombre']);
-    $email = mysqli_real_escape_string($enlace, $_POST['CorreoE']);
-    $Leng = mysqli_real_escape_string($enlace, $_POST['Lenguaje']);
-    $Exp = mysqli_real_escape_string($enlace, $_POST['Exp']);
-
-    echo "Nombre: $nombre, Email: $email, Lenguaje: $Leng, Experiencia: $Exp<br>";
-
-    // Hacer el insert de datos
-    $insertarDatos = "INSERT INTO solicitudmaestro (Id_Solicitud,Nombre, CorreoE, Lenguaje, Experiencia) 
-                      VALUES ('','$nombre', '$email', '$Leng', '$Exp')";
-                      
-    if (mysqli_query($enlace, $insertarDatos)) {
-        echo '<script type="text/javascript">
-                alert("Solicitud enviada con éxito.");
-                window.location = "../contact.php";
-              </script>';
-        exit();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nombre = mysqli_real_escape_string($conexion, $_POST['Nombre']);
+    $correo = mysqli_real_escape_string($conexion, $_POST['CorreoE']);
+    $lenguaje = mysqli_real_escape_string($conexion, $_POST['Lenguaje']);
+    $experiencia = mysqli_real_escape_string($conexion, $_POST['Exp']);
+    
+    $sql = "INSERT INTO solicitudmaestro (Nombre, CorreoE, Lenguaje, Exp) VALUES ('$nombre', '$correo', '$lenguaje', '$experiencia')";
+    
+    if (mysqli_query($conexion, $sql)) {
+        echo "<script>alert('Solicitud enviada exitosamente'); window.location.href='Maestro.php';</script>";
     } else {
-        echo '<script type="text/javascript">
-                alert("Error: ' . mysqli_error($enlace) . '");
-              </script>';
+        $errors[] = "Error al enviar la solicitud: " . mysqli_error($conexion);
     }
-    mysqli_close($enlace);
 }
 ?>

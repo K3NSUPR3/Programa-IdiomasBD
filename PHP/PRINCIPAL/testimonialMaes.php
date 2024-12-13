@@ -1,6 +1,5 @@
 <?php
 include 'ConexionSeq.php';
-
 session_start(); // Comunicación entre Log In de PHP
 
 // En caso de que guste Entrar
@@ -14,13 +13,12 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
     session_destroy();
     die();
 } else {
-   
+    // Conexión a la base de datos
+    $enlace = new mysqli("localhost:3307", "root", "", "idiomas");
 
-    // Configuración de la conexión 
-    $enlace = new mysqli("localhost:3307", "root", "", "idiomas"); 
-    // Verificar la conexión 
-    if ($enlace->connect_error) { 
-        die("Conexión fallida: " . $enlace->connect_error); }
+    if ($enlace->connect_error) {
+        die("Conexión fallida: " . $enlace->connect_error);
+    }
 
     $usuario = $_SESSION['Usuario'];
 
@@ -54,14 +52,14 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
         session_destroy();
         die();
     }
+    $stmt->close();
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-
     <meta charset="utf-8">
     <title>ADMIN</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -69,20 +67,67 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
     <meta content="administrador" name="description">
 
     <!-- Editar Registro -->
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
-    <title>Editar Registros</title>
-    <style> .btn-group { display: flex; gap: 5px; }     
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Editar Profesor</title>
+    <style>
+        .btn-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .table-container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        th,
+        td {
+            transition: all 0.3s ease;
+        }
+
+        th:hover,
+        td:hover {
+            background-color: #e2e2e2;
+            cursor: pointer;
+        }
     </style>
- 
+
     <!-- Favicon -->
     <link href="img/favicon_io/favicon.ico" rel="icon">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -100,49 +145,6 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-    <!-- Aquí van los estilos CSS -->
-    <style>
-    .table-container {
-        width: 80%;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        font-family: 'Poppins', sans-serif;
-    }
-
-    th, td {
-        border: 1px solid #ddd;
-        padding: 12px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #f2f2f2;
-        color: #333;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-
-    tr:hover {
-        background-color: #f1f1f1;
-    }
-
-    th, td {
-        transition: all 0.3s ease;
-    }
-
-    th:hover, td:hover {
-        background-color: #e2e2e2;
-        cursor: pointer;
-    }
-</style>
-
 </head>
 
 <body>
@@ -174,159 +176,149 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
             </div>
         </div>
     </div>
-        <!-- Topbar End -->
-        <a href="Cerrar_Sesion.php" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: red; text-decoration: none; border-radius: 5px; transition: background-color 0.3s;">Cerrar Sesión </a>
-    <?php  
-
-
-    include "ControlEliminarIns.php";
-    //libreriras necesarias XD
+    <!-- Topbar End -->
+    <a href="Cerrar_Sesion.php" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: red; text-decoration: none; border-radius: 5px; transition: background-color 0.3s;">Cerrar Sesión</a>
+    <?php
+    include 'ConexionSeq.php';
+    include "ControlEliminarMaes.php";
+    // Librerías necesarias XD
     ?>
+    <a href="AñadirProfesor.php" class="btn btn-primary btn rounded mb-3"><i class="fa-solid fa-plus"></i> &nbsp;Añadir</a>
     <a href="testimonial.php" class="btn btn-primary btn rounded mb-3">Registros</a>
     <a href="testimonialIns.php" class="btn btn-primary btn rounded mb-3">Inscripciones</a>
+    <a href="testimonialCur.php" class="btn btn-primary btn rounded mb-3">Cursos</a>
 
-<!--Inicio Inscripciones-->
-<div class="container mt-5">
+    <!--Inicio Inscripciones-->
+    <div class="container mt-5">
         <div title="TABLA">
-        <h4 class="text-center text-secondary">Profesores</h4>
+            <h4 class="text-center text-secondary">Profesores</h4>
             <table class="table table-bordered table-hover col-12" id="example" id="TablaR">
                 <thead>
                     <tr>
-                       <th scope="col">No Control</th>
+                        <th scope="col">NoControl</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellidos</th>
                         <th scope="col">Contraseña</th>
-                        <th scope="col">Correo </th>
+                        <th scope="col">Correo</th>
                         <th scope="col">Sueldo</th>
                         <th scope="col">Fecha Ingreso</th>
-                        <th scope="col">Teléfono</th>
+                        <th scope="col">Telefono</th>
                     </tr>
                 </thead>
-            <tbody>
-            <tbody> 
-            <?php 
+                <tbody>
+                    <?php
+                    $enlace = new mysqli("localhost:3307", "root", "", "idiomas");
 
-                    if ($enlace instanceof mysqli) {
-                        echo "Conexión está abierta y lista.";
+                    if ($enlace->connect_error) {
+                        die("Conexión fallida: " . $enlace->connect_error);
+                    }
+
+                    $sql = "SELECT NoControl, Nombre, Apellidos, Contraseña, Correo, Sueldo, FechaIn, Telefono FROM profesor";
+                    $stmt = $enlace->prepare($sql);
+
+                    if (!$stmt) {
+                        die("Error en la preparación de la consulta: " . $enlace->error);
+                    }
+
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<form action='updates/updateProf.php' method='POST'>";
+                            echo "<td style='color: #007bff; font-weight: bold;'>" . htmlspecialchars($row["NoControl"]) . "</td>";
+                            echo "<td style='color: #6c757d;'>" . htmlspecialchars($row["Nombre"]) . "</td>";
+                            echo "<td style='color: #17a2b8;'>" . htmlspecialchars($row["Apellidos"]) . "</td>";
+                            echo "<td style='color: #dc3545;'>" . htmlspecialchars($row["Contraseña"]) . "</td>";
+                            echo "<td style='color: #ffc107;'>" . htmlspecialchars($row["Correo"]) . "</td>";
+                            echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Sueldo"]) . "</td>";
+                            echo "<td style='color: #28a745;'>" . htmlspecialchars($row["FechaIn"]) . "</td>";
+                            echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Telefono"]) . "</td>";
+                            echo "<td class='btn-group'>
+                                <button type='button' class='btn btn-warning btn-sm' onclick=\"abrirModalEditarProfesor('" . htmlspecialchars($row["NoControl"]) . "','" . htmlspecialchars($row["Nombre"]) . "', '" . htmlspecialchars($row["Apellidos"]) . "', '" . htmlspecialchars($row["Contraseña"]) . "', '" . htmlspecialchars($row["Correo"]) . "','" . htmlspecialchars($row["Sueldo"]) . "','" . htmlspecialchars($row["FechaIn"]) . "', '" . htmlspecialchars($row["Telefono"]) . "')\"><i class='fa-solid fa-pen-to-square'></i></button>
+                                <a href='testimonialMaes.php?id=" . htmlspecialchars($row["NoControl"]) . "' class='btn btn-danger btn-sm' title='Eliminar' onclick='return advertencia()'><i class='fa-solid fa-trash'></i></a>
+                            </td>";
+                            echo "</form>";
+                            echo "</tr>";
+                        }
                     } else {
-                        echo "Error: Conexión fallida.";
+                        echo "<tr><td colspan='8' style='text-align: center; color: #6c757d;'>No hay datos</td></tr>";
                     }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--End Inscripcion-->
+</body>
+</html>
 
-
-                    if ($enlace->connect_errno) {
-                        echo "Error de conexión a la base de datos: " . $enlace->connect_error;
-                        exit();
-                    }
-                    
-                if ($enlace instanceof mysqli) {
-                 $sql = "SELECT Nombre,Apellidos,Contraseña,Correo,Sueldo,FechaIn,Telefono FROM profesor";
-                    
-            //       
-                } else {
-                    echo "Error: Conexión fallida";
-                }
-
-
-                include 'ConexionSeq.php';
-               // session_start();
-
-                if ($enlace instanceof mysqli) {
-                    $sql = "SELECT NoControl,Nombre,Apellidos,Contraseña,Correo,Sueldo,FechaIn,Telefono FROM profesor";
-                    if ($result = $enlace->query($sql)) {
-                        // Procesar los resultados aquí
-                    } else {
-                        echo "Error en la consulta: " . $enlace->error;
-                    }
-                } else {
-                    echo "Error: Conexión fallida";
-                }
-
-
-        if ($result === false) { die("Error en la consulta: " . $enlace->error); }
-
-                if ($result->num_rows > 0) { 
-                    while($row = $result->fetch_assoc()) { 
-                        echo "<tr>"; 
-                        echo "<form action = 'updates/updateIns.php' method = 'POST'>";
-                        echo "<td style='color: #007bff; font-weight: bold;'>" . htmlspecialchars($row["NoControl"]) . "</td>"; 
-                        echo "<td style='color: #6c757d;'>" . htmlspecialchars($row["Nombre"]) . "</td>"; 
-                        echo "<td style='color: #17a2b8;'>" . htmlspecialchars($row["Apellidos"]) . "</td>"; 
-                        echo "<td style='color: #dc3545;'>" . htmlspecialchars($row["Contraseña"]) . "</td>"; 
-                        echo "<td style='color: #ffc107;'>" . htmlspecialchars($row["Correo"]) . "</td>"; 
-                        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Sueldo"]) . "</td>";
-                        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["FechaIn"]) . "</td>";
-                        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Telefono"]) . "</td>";
-                        echo "<td class='btn-group'>
-                        <button type='button' class='btn btn-warning btn-sm' onclick=\"abrirModalEditarUsuario('" . htmlspecialchars($row["NoControl"]) . "','" . htmlspecialchars($row["Nombre"]) . "', '" . htmlspecialchars($row["Apellidos"]) . "', '" . htmlspecialchars($row["Correo"]) . "','" . htmlspecialchars($row["Sueldo"]) . "','" . htmlspecialchars($row["FechaIn"]) . "', '" . htmlspecialchars($row["Telefono"]) . "')\"><i class='fa-solid fa-pen-to-square'></i></button>
-                        <!--Eliminado-->
-                        <a href='testimonialMaes.php?id=" . htmlspecialchars($row["NoControl"]) . "' 
-                            class='btn btn-danger btn-sm' 
-                            title='Eliminar' 
-                            onclick='return advertencia()'>
-                            <i class='fa-solid fa-trash'></i>
-                            </a> 
-                        </td>";
-                        echo "</form>";
-                        echo "</tr>"; 
-                    } // aqui arriba hay que tener cuidado de que relizamos en los href
-                } else { 
-                    echo "<tr><td colspan='7' style='text-align: center; color: #6c757d;'>No hay datos</td></tr>"; 
-                } 
-                
-            ?>
-            </tbody>
-      </tbody>
-</table>
-<!--End Inscripcion-->
-
-            <!--Modelo Ins-->
-<!-- Model -->
-<div class="modal" tabindex="-1" id="editUserModal">
+<<div class="modal" tabindex="-1" id="editProfesorModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modificar Usuario</h5>
+        <h5 class="modal-title">Modificar Profesor</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="editUserForm" action="updates/update.php" method="post">
-          <input type="hidden" name="ID" id="editUserID">
+        <form id="editProfesorForm" action="updates/updateProf.php" method="post">
           <div class="form-group">
-            <label for="editNombre">Nombre:</label>
-            <input type="text" class="form-control" name="Nombre" id="editNombre">
+            <label for="editProfesorID">Numero de Control:</label>
+            <input type="hidden" name="NoControl" id="editProfesorID">
           </div>
           <div class="form-group">
-            <label for="editApellido">Apellido:</label>
-            <input type="text" class="form-control" name="Apellido" id="editApellido">
+            <label for="editProfesorNombre">Nombre:</label>
+            <input type="text" class="form-control" name="Nombre" id="editProfesorNombre" required>
           </div>
           <div class="form-group">
-            <label for="editApellido">Contraseña:</label>
-            <input type="text" class="form-control" name="Apellido" id="editContra">
+            <label for="editProfesorApellidos">Apellidos:</label>
+            <input type="text" class="form-control" name="Apellidos" id="editProfesorApellidos" required>
           </div>
           <div class="form-group">
-            <label for="editEmail">Correo Eléctronico:</label>
-            <input type="email" class="form-control" name="Email" id="editEmail">
+            <label for="editProfesorContraseña">Contraseña:</label>
+            <input type="password" class="form-control" name="Contraseña" id="editProfesorContraseña" required>
           </div>
           <div class="form-group">
-            <label for="editContraseña">Sueldo:</label>
-            <input type="text" class="form-control" name="Contraseña" id="editSueldo">
+            <label for="editProfesorEmail">Correo Electrónico:</label>
+            <input type="email" class="form-control" name="Correo" id="editProfesorEmail" required>
           </div>
           <div class="form-group">
-            <label for="editUsuario">Fecha Incripcion:</label>
-            <input type="text" class="form-control" name="Usuario" id="editFIns">
+            <label for="editProfesorSueldo">Sueldo:</label>
+            <input type="number" class="form-control" name="Sueldo" id="editProfesorSueldo" required>
           </div>
-        </form>
+          <div class="form-group">
+            <label for="editProfesorFecha">Fecha:</label>
+            <input type="date" class="form-control" name="FechaIn" id="editProfesorFecha" required>
+          </div>
+          <div class="form-group">
+            <label for="editProfesorTel">Telefono:</label>
+            <input type="text" class="form-control" name="Telefono" id="editProfesorTel" required>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" onclick="document.getElementById('editUserForm').submit();">Guardar Cambios</button>
+        <button type="button" class="btn btn-primary" onclick="submitEditProfesorForm()">Guardar Cambios</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
-            <!--End modelo Insc-->
+
+<script>
+  // Función para enviar el formulario de edición del profesor
+  function submitEditProfesorForm() {
+    var form = document.getElementById('editProfesorForm');
+    if (form.checkValidity()) {
+      form.submit(); // Enviar el formulario si está todo validado
+    } else {
+      alert('Por favor, complete todos los campos requeridos.');
+    }
+  }
+
+            <!--End modelo mAES-->
 
     <!-- Footer Start -->
     <div class="footer container-fluid position-relative bg-dark py-5" style="margin-top: 90px;">
@@ -390,54 +382,51 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
 
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/counterup/counterup.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/tempusdominus/js/moment.min.js"></script>
+<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<!-- Contact Javascript File -->
+<script src="mail/jqBootstrapValidation.min.js"></script>
+<scrip src="mail/contact.js"></scrip>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
-    
+<!-- Querys -->
+<scrip src="https://code.jquery.com/jquery-3.6.0.min.js"></scrip>
 
-            <!--querys-->
-            <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-            <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<!-- Template Javascript -->
+<scrip src="js/main.js"></scrip>
 
 
-
-
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-    <script> 
-        function advertencia(){
-            var notif=confirm("Estas seguro que desea eliminar?");
-            return notif;
-        }
+    function advertencia() {
+        var notif = confirm("¿Estás seguro que deseas eliminar?");
+        return notif;
+    }
     </script>
-<!--Ventana Insscripcion-->
     <script>
-            function abrirModalEditarIns(nombre, email, fecha, horario, idioma, plan,id) {
-                document.getElementById('IdNombreIns').value = nombre;
-                document.getElementById('editCorreoIns').value = email;
-                document.getElementById('editFechaIns').value = fecha;
-                document.getElementById('editHorarioIns').value = horario;
-                document.getElementById('editIdiomaIns').value=idioma
-                document.getElementById('editPlan').value = plan;
-                document.getElementById('IdnombreIns').value = id;
-                $('#editUserModalIns').modal('show');
-     }
+       function abrirModalEditarProfesor(id, nombre, apellidos, contraseña, email, sueldo, fecha, telefono) {
+        document.getElementById('editProfesorID').value = id;
+        document.getElementById('editProfesorNombre').value = nombre;
+        document.getElementById('editProfesorApellidos').value = apellidos;
+        document.getElementById('editProfesorContraseña').value = contraseña;
+        document.getElementById('editProfesorEmail').value = email;
+        document.getElementById('editProfesorSueldo').value = sueldo;
+        document.getElementById('editProfesorFecha').value = fecha;
+        document.getElementById('editProfesorTel').value = telefono;
+
+        // Mostrar el modal
+        $('#editProfesorModal').modal('show');
+    }
+
     </script>
+  
+
 
 
 

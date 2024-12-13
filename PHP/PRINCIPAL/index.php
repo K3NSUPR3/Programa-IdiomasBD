@@ -357,10 +357,7 @@ $result = $enlace->query($sql);
                             <h5 class="text-white text-uppercase mb-4">Novedades</h5>
                             <div class="w-100">
                                 <div class="input-group">
-                                    <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="Your Email Address">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary px-4">iniciar-sesion</button>
-                                    </div>
+                                    <p>Les agradezo la oportunidad de visitar nuestro sistema</p>
                                 </div>
                             </div>
                         </div>

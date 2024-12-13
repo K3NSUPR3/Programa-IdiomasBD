@@ -4,7 +4,7 @@ include 'ConexionSeq.php';
 session_start(); // Comunicación entre Log In de PHP
 
 // En caso de que guste Entrar
-if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) { // pf
+if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
     echo '
     <script type="text/javascript">
         alert("Debes iniciar sesión");
@@ -13,25 +13,23 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) { // pf
     ';
     session_destroy();
     die();
-  }else {  //este primer if
-   
+} else {
+    // Conexión a la base de datos
+    $enlace = new mysqli("localhost:3307", "root", "", "idiomas");
 
-        // Configuración de la conexión 
-        $enlace = new mysqli("localhost:3307", "root", "", "idiomas"); 
-        // Verificar la conexión 
-        if ($enlace->connect_error) { //sf
-            die("Conexión fallida: " . $enlace->connect_error); 
-        }//sf
+    if ($enlace->connect_error) {
+        die("Conexión fallida: " . $enlace->connect_error);
+    }
 
-        $usuario = $_SESSION['Usuario'];
+    $usuario = $_SESSION['Usuario'];
 
-        // Consulta para obtener el tipo de usuario
-        $stmt = $enlace->prepare("SELECT TipoUsuario FROM registroidiomas WHERE Usuario=?");
-        $stmt->bind_param("s", $usuario);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-    if ($result->num_rows > 0) { 
+    // Consulta para obtener el tipo de usuario
+    $stmt = $enlace->prepare("SELECT TipoUsuario FROM registroidiomas WHERE Usuario=?");
+    $stmt->bind_param("s", $usuario);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $tipoUsuario = $row['TipoUsuario'];
 
@@ -55,8 +53,8 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) { // pf
         session_destroy();
         die();
     }
-}//else del pf
-   ?>
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +72,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) { // pf
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
-    <title>Editar Registros</title>
+    <title>Editar Curso</title>
     <style> .btn-group { display: flex; gap: 5px; }     
     </style>
  
@@ -177,156 +175,133 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) { // pf
     </div>
         <!-- Topbar End -->
         <a href="Cerrar_Sesion.php" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: red; text-decoration: none; border-radius: 5px; transition: background-color 0.3s;">Cerrar Sesión </a>
-    <?php
-    include 'ConexionSeq.php';  
-    include "ControlEliminarIns.php";
-    //libreriras necesarias XD
+    <?php  
+    
+    include 'ConexionSeq.php';
+    include "ControlEliminarCur.php";
     ?>
+    <a href="AñadirCurso.php" class="btn btn-primary btn rounded mb-3"><i class="fa-solid fa-plus"></i> &nbsp;Añadir</a>
+    <a href="testimonialIns.php" class="btn btn-primary btn rounded mb-3">Inscripciones</a>
     <a href="testimonial.php" class="btn btn-primary btn rounded mb-3">Registros</a>
     <a href="testimonialMaes.php" class="btn btn-primary btn rounded mb-3">Maestros</a>
-    <a href="testimonialCur.php" class="btn btn-primary btn rounded mb-3">Cursos</a>
-    
-<!--Inicio Inscripciones-->
-<div class="container mt-5">
+    <!--Inicio Registro-->
+    <div class="container mt-5">
         <div title="TABLA">
-        <h4 class="text-center text-secondary">Inscripciones</h4>
+        <h4 class="text-center text-secondary">Cursos</h4>
             <table class="table table-bordered table-hover col-12" id="example" id="TablaR">
                 <thead>
                     <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Correo Eléctronico</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Hora</th>
+                        <th scope="cot">Clave Curso</th>
+                        <th scope="col">Nombre de Maestro</th>
                         <th scope="col">Idioma</th>
-                        <th scope="col">Plan</th>
-                        <th scope="col">ID</th>
+                        <th scope="col">Nivel General</th>
+                        <th scope="col">Clasificacion</th>
+                        <th scope="col">Fecha de Inicio</th>
+                        <th scope="col">Cupo</th>
                     </tr>
                 </thead>
             <tbody>
             <tbody> 
             <?php 
-
-                    if ($enlace instanceof mysqli) {
-                        echo "Conexión está abierta y lista.";
-                    } else {
-                        echo "Error: Conexión fallida.";
-                    }
-
-
-                    if ($enlace->connect_errno) {
-                        echo "Error de conexión a la base de datos: " . $enlace->connect_error;
-                        exit();
-                    }
-                    
-
-
-                if ($enlace instanceof mysqli) {
-                 $sql = "SELECT Nombre,Correo,Fecha,Horario,Idioma,Plan,Id_Insc FROM inscripciones";
-                    
-                } else {
-                    echo "Error: Conexión fallida";
-                }
-
-
-                include 'ConexionSeq.php';
-               // session_start();
-
-                if ($enlace instanceof mysqli) {
-                    $sql = "SELECT Nombre,Correo,Fecha,Horario,Idioma,Plan,Id_Insc FROM inscripciones";
-                    if ($result = $enlace->query($sql)) {
-                        // Procesar los resultados aquí
-                    } else {
-                        echo "Error en la consulta: " . $enlace->error;
-                    }
-                } else {
-                    echo "Error: Conexión fallida";
-                }
-
-
-
-            
-
-        if ($result === false) { die("Error en la consulta: " . $enlace->error); }
+                $sql = "SELECT ClaveCurso,NombredeMaestro,Idioma,NivelGeneral,Clasificacion,FechaInicio,Cupo FROM curso"; 
+                $result = $enlace->query($sql); 
 
                 if ($result->num_rows > 0) { 
                     while($row = $result->fetch_assoc()) { 
                         echo "<tr>";
-                        echo "<form action = 'updates/updateIns.php' method = 'POST'>";
-                        echo "<td style='color: #007bff; font-weight: bold;'>" . htmlspecialchars($row["Nombre"]) . "</td>"; 
-                        echo "<td style='color: #6c757d;'>" . htmlspecialchars($row["Correo"]) . "</td>"; 
-                        echo "<td style='color: #17a2b8;'>" . htmlspecialchars($row["Fecha"]) . "</td>"; 
-                        echo "<td style='color: #dc3545;'>" . htmlspecialchars($row["Horario"]) . "</td>"; 
-                        echo "<td style='color: #ffc107;'>" . htmlspecialchars($row["Idioma"]) . "</td>"; 
-                        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Plan"]) . "</td>";
-                        echo "<td style='color: #ffc107;'>" . htmlspecialchars($row["Id_Insc"]) . "</td>"; 
+                        echo "<form action = 'updates/updateCur.php' method = 'POST'>";
+                        echo "<td style='color: #007bff; font-weight: bold;'>" . htmlspecialchars($row["ClaveCurso"]) . "</td>"; 
+                        echo "<td style='color: #6c757d;'>" . htmlspecialchars($row["NombredeMaestro"]) . "</td>"; 
+                        echo "<td style='color: #17a2b8;'>" . htmlspecialchars($row["Idioma"]) . "</td>"; 
+                        echo "<td style='color: #dc3545;'>" . htmlspecialchars($row["NivelGeneral"]) . "</td>"; 
+                        echo "<td style='color: #28a745;'>" . htmlspecialchars($row["Clasificacion"]) . "</td>"; 
+                        echo "<td style='color:rgb(157, 206, 43);'>" . htmlspecialchars($row["FechaInicio"]) . "</td>";
+                        echo "<td style='color:rgb(14, 139, 155);'>" . htmlspecialchars($row["Cupo"]) . "</td>"; 
                         echo "<td class='btn-group'>
-                         <a href='testimonialIns.php?id=" . htmlspecialchars($row["Id_Insc"]) . "' 
+                        <!--editar-->
+                        <button type='button' class='btn btn-warning btn-sm' onclick=\"abrirModalEditarCurso('" . 
+                        htmlspecialchars($row["ClaveCurso"]) . "', 
+                        '" . htmlspecialchars($row["NombredeMaestro"]) . "',
+                        '" . htmlspecialchars($row["Idioma"]) . "', 
+                        '" . htmlspecialchars($row["NivelGeneral"]) . "', 
+                        '" . htmlspecialchars($row["Clasificacion"]) . "',
+                         '" . htmlspecialchars($row["FechaInicio"]) . "',
+                          '" . htmlspecialchars($row["Cupo"]) . "' )\"><i class='fa-solid fa-pen-to-square'></i></button>
+                        <!--eliminar-->  
+                        <a href='testimonialCur.php?id=" . htmlspecialchars($row["ClaveCurso"]) . "' 
                             class='btn btn-danger btn-sm' 
                             title='Eliminar' 
                             onclick='return advertencia()'>
                             <i class='fa-solid fa-trash'></i>
-                            </a> 
+                            </a>
                         </td>";
                         echo "</form>";
                         echo "</tr>"; 
-                    } // aqui arriba hay que tener cuidado de que relizamos en los href
+                    } 
                 } else { 
                     echo "<tr><td colspan='7' style='text-align: center; color: #6c757d;'>No hay datos</td></tr>"; 
                 } 
+                   // $enlace->close();
             ?>
+
             </tbody>
       </tbody>
 </table>
-<!--End Inscripcion-->
+<!--End Registros-->
 
-            <!--Modelo Ins-->
 <!-- Model -->
-<div class="modal" tabindex="-1" id="editUserModalIns">
+<div class="modal" tabindex="-1" id="editModalC">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modificar Incripción</h5>
+        <h5 class="modal-title">Modificar Curso</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="editInsForm" action="updates/updateIns.php" method="post">
-          <input type="hidden" name="ID" id="IdnombreIns">
+        <form id="editUserFormCur" action="updates/updateCur.php" method="post">
+          <input type="hidden" name="ID" id="ClaveCurso">
           <div class="form-group">
-            <label for="editNombreIns">Nombre:</label>
-            <input type="text" class="form-control" name="Nombre" id="editNombreIns">
+            <label for="editClaveCur">Clave Curso:</label>
+            <input type="text" class="form-control" name="ClaveCurso" id="editClaveCur">
           </div>
           <div class="form-group">
-            <label for="editCorreoIns">Correo Eléctronico:</label>
-            <input type="email" class="form-control" name="Correo" id="editCorreoIns">
+            <label for="editNombre">Nombre de Maestro:</label>
+            <input type="text" class="form-control" name="NombredeMaestro" id="editNombre">
           </div>
           <div class="form-group">
-            <label for="editFechaIns">Fecha</label>
-            <input type="date" class="form-control" name="Fecha" id="editFechaIns">
+            <label for="editI">Idioma:</label>
+            <input type="text" class="form-control" name="Idioma" id="editI">
           </div>
           <div class="form-group">
-            <label for="editHorarioIns">Horario:</label>
-            <input type="text" class="form-control" name="Horario" id="editHorarioIns">
+            <label for="editNG">Nivel General:</label>
+            <input type="text" maxlength="2" class="form-control" name="NivelGeneral" id="editNG">
           </div>
           <div class="form-group">
-            <label for="editIdiomaIns">Idioma:</label>
-            <input type="text" class="form-control" name="Idioma" id="editIdiomaIns">
+            <label for="editCl">Clasificación:</label>
+            <input type="text" class="form-control" name="Clasificacion" id="editCl">
           </div>
           <div class="form-group">
-            <label for="editPlan">Plan:</label>
-            <input type="text" class="form-control" name="Plan" id="editPlan">
+            <label for="editFecha">Fecha Inicio:</label>
+            <input type="date" class="form-control" name="FechaInicio" id="editFecha">
+          </div>
+          <div class="form-group">
+            <label for="editCup">Cupo:</label>
+            <input type="text" class="form-control" name="Cupo" id="editCup">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" onclick="document.getElementById('editInsForm').submit();">Guardar Cambios</button>
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('editUserFormCur').submit();">Guardar Cambios</button>
       </div>
     </div>
   </div>
 </div>
-            <!--End modelo Insc-->
+            <!--Fin Modelo-->
+
+        
 
     <!-- Footer Start -->
     <div class="footer container-fluid position-relative bg-dark py-5" style="margin-top: 90px;">
@@ -400,22 +375,10 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) { // pf
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <!-- Contact Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
-    
-
-            <!--querys-->
-            <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-            <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-
-
-
-
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
@@ -425,23 +388,20 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) { // pf
             return notif;
         }
     </script>
-<!--Ventana Insscripcion-->
-    <script type="text/javascript">
-            function abrirModalEditarIns(nombre, email, fecha, horario, idioma, plan,id) {
-                document.getElementById('IdNombreIns').value = nombre;
-                document.getElementById('editCorreoIns').value = email;
-                document.getElementById('editFechaIns').value = fecha;
-                document.getElementById('editHorarioIns').value = horario;
-                document.getElementById('editIdiomaIns').value=idioma
-                document.getElementById('editPlan').value = plan;
-                document.getElementById('IdnombreIns').value = id;
-                $('#editUserModalIns').modal('show');
+
+    <!--Ventana Registro-->
+    <script>
+            function abrirModalEditarCurso(claveCurso,NombredeMaestro,Idioma,NivelGeneral,Clasificacion,FechaInicio,Cupo) {
+                document.getElementById('editClaveCur').value = claveCurso;
+                document.getElementById('editNombre').value = NombredeMaestro;
+                document.getElementById('editI').value = Idioma;
+                document.getElementById('editNG').value = NivelGeneral;
+                document.getElementById('editCl').value = Clasificacion;
+                document.getElementById('editFecha').value = FechaInicio;
+                document.getElementById('editCup').value = Cupo;
+                $('#editModalC').modal('show');
      }
     </script>
 
-
-
 </body>
-
 </html>
-

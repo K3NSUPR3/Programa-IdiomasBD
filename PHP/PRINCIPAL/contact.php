@@ -5,6 +5,7 @@ include 'ConexionSeq.php';
 session_start(); // Comunicación entre Log In de PHP
 
 // En caso de que guste Entrar
+
 if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
     echo '
     <script type="text/javascript">
@@ -178,51 +179,107 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
 
  
     <!-- Contact Start -->
-    <div class="container-fluid py-5">
-        <img class="position-absolute w-100 h-100" src="img/Carousel-3.jpg" style="object-fit: cover;">
-        <div class="container py-5">
-            <div class="row">
-                <div class="col-lg-6" style="min-height: 500px;">
-                    <div class="position-relative h-100">
-                        <iframe class="position-absolute w-100 h-100" src="" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                    </div>
+    <?php
+// Iniciar sesión y conectar a la base de datos
+
+// Configuración de la conexión a la base de datos
+
+$servername = "localhost:3307";
+$username = "root";
+$password = "";
+$dbname = "idiomas";
+
+// Crear la conexión
+$enlace = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar la conexión
+if ($enlace->connect_error) {
+    die("Conexión fallida: " . $enlace->connect_error);
+}
+
+// Procesar el formulario cuando se envía
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["maestro"])) {
+    $nombre = mysqli_real_escape_string($enlace, $_POST['Nombre']);
+    $email = mysqli_real_escape_string($enlace, $_POST['CorreoE']);
+    $Leng = mysqli_real_escape_string($enlace, $_POST['Lenguaje']);
+    $Exp = mysqli_real_escape_string($enlace, $_POST['Exp']);
+
+    // Mensaje de depuración para verificar los datos recibidos
+    echo "Nombre: $nombre, Email: $email, Lenguaje: $Leng, Experiencia: $Exp<br>";
+
+    // Insertar los datos en la base de datos
+    $insertarDatos = "INSERT INTO solicitudmaestro (ID_Solicitud, Nombre, CorreoE, Lenguaje, Experiencia) 
+                      VALUES (NULL, '$nombre', '$email', '$Leng', '$Exp')";
+
+    if (mysqli_query($enlace, $insertarDatos)) {
+        echo '<script type="text/javascript">
+                alert("Solicitud enviada con éxito.");
+                window.location = "../contact.php";
+              </script>';
+        exit();
+    } else {
+        echo '<script type="text/javascript">
+                alert("Error: ' . mysqli_error($enlace) . '");
+              </script>';
+    }
+    mysqli_close($enlace);
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Maestro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container-fluid py-5">
+    <img class="position-absolute w-100 h-100" src="img/Carousel-3.jpg" style="object-fit: cover;">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-6" style="min-height: 500px;">
+                <div class="position-relative h-100">
+                    <iframe class="position-absolute w-100 h-100" src="" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                 </div>
-                <div class="col-lg-6 pt-5 pb-lg-5">
-                    <div class="contact-form bg-light p-4 p-lg-5 my-lg-5">
-                        <h6 class="d-inline-block text-white text-uppercase bg-primary py-1 px-2">Contacto</h6>
-                        <h1 class="mb-4">Contáctanos para formar parte de nuestro Equipo</h1>
-                        <div id="success"></div>
-                        <form action="Maestro.php" method="post" name="maestro" id="contactForm" novalidate="novalidate">
-                         <?php
-                         include "ConexionSeq.php";
-                         ?>
+            </div>
+            <div class="col-lg-6 pt-5 pb-lg-5">
+                <div class="contact-form bg-light p-4 p-lg-5 my-lg-5">
+                    <h6 class="d-inline-block text-white text-uppercase bg-primary py-1 px-2">Contacto</h6>
+                    <h1 class="mb-4">Contáctanos para formar parte de nuestro Equipo</h1>
+                    <form action="Maestro.php" method="post" name="maestro" id="contactForm" novalidate="novalidate">
                         <div class="form-row">
-                                <div class="col-sm-6 control-group">
-                                    <input type="text" class="form-control border-0 p-4" minlength="15" id="name" name="nombre" placeholder="Nombre" required="required" data-validation-required-message="Pon tu nombre" />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                                <div class="col-sm-6 control-group">
-                                    <input type="email" class="form-control border-0 p-4" id="email" name="CorreoE" placeholder="Correo Electrónico" required="required" data-validation-required-message="Por favor llena tu email" />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <input type="text" minlength="3" class="form-control border-0 p-4" id="subject" name="Lenguaje" placeholder="Lenguaje a enseñar" required="required" data-validation-required-message="Lenguaje requerido" />
+                            <div class="col-sm-6 control-group">
+                                <input type="text" class="form-control border-0 p-4" minlength="15" id="name" name="Nombre" placeholder="Nombre Sol." required="required" data-validation-required-message="Nombre Solicitante" />
                                 <p class="help-block text-danger"></p>
                             </div>
-                            <div class="control-group">
-                                <input type="text" class="form-control border-0 py-3 px-4" minlength="100" rows="3" id="message" name="Exp" placeholder="Experiencia" required="required" data-validation-required-message="Escribe tu experiencia"></input>
+                            <div class="col-sm-6 control-group">
+                                <input type="email" class="form-control border-0 p-4" id="email" name="CorreoE" placeholder="Correo Electrónico" required="required" data-validation-required-message="Por favor llena tu email" />
                                 <p class="help-block text-danger"></p>
                             </div>
-                            <div>
-                                <button class="btn btn-primary py-3 px-4" type="submit" name="maestro" id="sendMessageButton">Enviar Solicitud</button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="control-group">
+                            <input type="text" minlength="3" class="form-control border-0 p-4" id="subject" name="Lenguaje" placeholder="Lenguaje a enseñar" required="required" data-validation-required-message="Lenguaje " />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <textarea class="form-control border-0 py-3 px-4" minlength="100" rows="3" id="message" name="Exp" placeholder="Experiencia" required="required" data-validation-required-message="Escribe tu experiencia"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary py-3 px-4" type="submit" name="maestro">Enviar Solicitud</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+</body>
+</html>
+
     <!-- Contact End -->
 
     <div class="rounded-md bg-white py-12 px-8 lg:px-9 lg:pt-16 lg:pb-20">
@@ -325,5 +382,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    
 </body>
 </html>
