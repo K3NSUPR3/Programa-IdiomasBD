@@ -43,10 +43,9 @@
         <a  href="Log-InP.php" id="profesor">Profesor</a>
     </li>
 </ul>
-
   </ul>
 
-        <!-- Contenido de los Formularios -->
+    <!-- Contenido de los Formularios -->
             <!-- Iniciar Sesion -->
             <div id="iniciar-sesion">
                 <h1>Iniciar Sesión</h1>

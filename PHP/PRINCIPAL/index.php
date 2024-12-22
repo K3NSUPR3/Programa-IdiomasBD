@@ -133,9 +133,15 @@ $result = $enlace->query($sql);
             </a>
         </li>
         <li>
+            <a href="PROF/CalifiA.php" class="nav-link text-white">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                Calificaciones
+            </a>
+        </li>
+        <li>
             <a href="price.php" class="nav-link text-white">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                Cursos
+                Precios
             </a>
         </li>
         <li>
@@ -148,12 +154,6 @@ $result = $enlace->query($sql);
             <a href="opening.php" class="nav-link text-white">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
                 Horario
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link text-white">
-                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                Boleta
             </a>
         </li>
         <li>

@@ -1,5 +1,5 @@
 <?php
-include 'ConexionSeq.php';
+include '../ConexionSeq.php';
 
 session_start(); // Comunicación entre Log In de PHP
 
@@ -8,7 +8,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
     echo '
     <script type="text/javascript">
         alert("Debes iniciar sesión");
-        window.location ="../Log-InU.php";
+        window.location ="../../Log-InU.php";
     </script>
     ';
     session_destroy();
@@ -37,7 +37,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
             echo '
             <script>
                 alert("No tienes permisos de administrador.");
-                window.location = "../Log-InU.php";
+                window.location = "../../Log-InU.php";
             </script>
             ';
             session_destroy();
@@ -47,7 +47,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
         echo '
         <script>
             alert("Usuario no encontrado en la base de datos.");
-            window.location = "../Log-InU.php";
+            window.location = "../../Log-InU.php";
         </script>
         ';
         session_destroy();
@@ -77,11 +77,11 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
     </style>
  
     <!-- Favicon -->
-    <link href="img/favicon_io/favicon.ico" rel="icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
+    <link href="../img/favicon_io/favicon.ico" rel="icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="..//apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="..//favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="..//favicon-16x16.png">
+        <link rel="manifest" href="..//site.webmanifest">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -92,13 +92,13 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
     <script src="https://kit.fontawesome.com/62d309d756.js" crossorigin="anonymous"></script>
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="../lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
     <!-- Aquí van los estilos CSS -->
     <style>
     .table-container {
@@ -174,13 +174,13 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
         </div>
     </div>
         <!-- Topbar End -->
-        <a href="Cerrar_Sesion.php" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: red; text-decoration: none; border-radius: 5px; transition: background-color 0.3s;">Cerrar Sesión </a>
+        <a href="../Cerrar_Sesion.php" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: red; text-decoration: none; border-radius: 5px; transition: background-color 0.3s;">Cerrar Sesión </a>
     <?php  
     
     include 'ConexionSeq.php';
-    include "ControlEliminarCur.php";
+    include "../CE/ControlEliminarCur.php";
     ?>
-    <a href="AñadirCurso.php" class="btn btn-primary btn rounded mb-3"><i class="fa-solid fa-plus"></i> &nbsp;Añadir</a>
+    <a href="../AñadirCurso.php" class="btn btn-primary btn rounded mb-3"><i class="fa-solid fa-plus"></i> &nbsp;Añadir</a>
     <a href="testimonialIns.php" class="btn btn-primary btn rounded mb-3">Inscripciones</a>
     <a href="testimonial.php" class="btn btn-primary btn rounded mb-3">Registros</a>
     <a href="testimonialMaes.php" class="btn btn-primary btn rounded mb-3">Maestros</a>
@@ -209,7 +209,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
                 if ($result->num_rows > 0) { 
                     while($row = $result->fetch_assoc()) { 
                         echo "<tr>";
-                        echo "<form action = 'updates/updateCur.php' method = 'POST'>";
+                        echo "<form action = '../updates/updateCur.php' method = 'POST'>";
                         echo "<td style='color: #007bff; font-weight: bold;'>" . htmlspecialchars($row["ClaveCurso"]) . "</td>"; 
                         echo "<td style='color: #6c757d;'>" . htmlspecialchars($row["NombredeMaestro"]) . "</td>"; 
                         echo "<td style='color: #17a2b8;'>" . htmlspecialchars($row["Idioma"]) . "</td>"; 
@@ -260,7 +260,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
         </button>
       </div>
       <div class="modal-body">
-        <form id="editUserFormCur" action="updates/updateCur.php" method="post">
+        <form id="editUserFormCur" action="../updates/updateCur.php" method="post">
           <input type="hidden" name="ID" id="ClaveCurso">
           <div class="form-group">
             <label for="editClaveCur">Clave Curso:</label>
@@ -308,7 +308,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
         <div class="container pt-5">
             <div class="row">
                 <div class="col-lg-6 pr-lg-5 mb-5">
-                    <a href="index.php" class="navbar-brand">
+                    <a href="../index.php" class="navbar-brand">
                         <h1 class="mb-3 text-white"><span class="text-primary">Poly</span> Glob</h1>
                     </a>
                     <p>Con nostros aprenderas por que aprenderas si o que.</p>

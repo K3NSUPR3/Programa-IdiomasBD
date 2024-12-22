@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['Usuario'] = $usuario;
                 echo '<script type="text/javascript">
                         alert("Ingreso");
-                        window.location = "PRINCIPAL/testimonial.php";
+                        window.location = "PRINCIPAL/Testimonial/testimonial.php";
                       </script>';
                 exit();
             } else {

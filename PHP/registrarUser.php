@@ -9,7 +9,7 @@
     $usuario=$_POST['usuario'];
     //hacer el insert de datos
     //forma anterior  $insertarDatos="INSERT INTO registroidiomas(Nombre,Apellido,Email,Contraseña,ID,Usuario,TipoUsuario) VALUES ('$nombre','$apellido','$email','$contra','','$usuario','alumno')";
-    $insertarDatos = "INSERT INTO registroidiomas (Nombre, Apellido, Email, Contraseña, Usuario, TipoUsuario) VALUES ('$nombre', '$apellido', '$email', '$contra', '$usuario', 'alumno')";
+    $insertarDatos = "INSERT INTO registroidiomas (Nombre, Apellido, Email, Contraseña, Usuario, TipoUsuario) VALUES ('$nombre', '$apellido', '$email', '$contra', '$usuario', 'alumno')"; //se puede dejar como persona
     if (mysqli_query($enlace, $insertarDatos)) { 
         $userId = mysqli_insert_id($enlace); // Obtén el ID insertado 
         $_SESSION['ID'] = $userId; // Guarda el ID en la sesión 

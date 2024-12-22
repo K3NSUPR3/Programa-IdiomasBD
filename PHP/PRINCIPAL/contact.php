@@ -150,7 +150,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Opciones</a>
                         <div class="dropdown-menu rounded-0 m-0">
                             <!--falta el apartado de modificaciones-->
-                            <a href="#" class="dropdown-item">Modificación</a>
+                            <a href="#" class="dropdown-item" onclick="mostrarAlerta()">Modificación</a>
                             <a href="PROF/Califalumnos.php" class="dropdown-item">Calificaciones</a>
                             <a href="Cerrar_Sesion.php" class="dropdown-item">Cerrar Sesión</a>
                             <!--faltaria la pagina de calificaciones-->
@@ -379,6 +379,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["maestro"])) {
     <!-- Contact Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
+
+    <script>
+        function mostrarAlerta() {
+            alert("Hablar con tu administrador para modificar tus datos");
+        }
+    </script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
