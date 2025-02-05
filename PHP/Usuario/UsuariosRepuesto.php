@@ -8,6 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['Usuario']) && isset($_POST['password1'])) {
         $usuario = $_POST['Usuario'];
         $contrasena = $_POST['password1'];
+        //desencriptamiento  ingenieria inversa mismo procedimiento
+        $contrasena=hash('sha512',$contrasena);
 
         // Conexión a la base de datos
         $enlace = new mysqli("localhost:3307", "root", "", "idiomas");
@@ -24,23 +26,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows > 0) {
             $_SESSION['Usuario'] = $usuario;
-            header("location:PRINCIPAL/index.php");
+            header("location:../PRINCIPAL/index.php");
             exit(); // Asegúrate de detener el script aquí
         } else {
             echo '<script>
                 alert("Usuario no existe, por favor verifica");
-                window.location = "Log-In.php";
+                window.location = "../LogIn/Log-In.php";
             </script>';
             exit(); // Asegúrate de detener el script aquí también
         }
     } else {
         echo 'Usuario o contraseña no están definidos. Por favor, intente de nuevo.';
-        header("location: Log-In.php");
+        header("location:../LogIn/Log-In.php");
         exit();
     }
 } else {
     echo 'El formulario no ha sido enviado correctamente.';
-    header("location: Log-In.php");
+    header("location:../LogIn/Log-In.php");
     exit();
 }
 //atoradisimo
@@ -55,7 +57,7 @@ and Contraseña='$contrasena'");
 if(mysqli_num_rows($validar_login) > 0){
   echo'<script type="text/javascript">
         alert ("Ingreso");
-        windows.location:/PRINCIPAL/index.php";
+        windows.location:..//PRINCIPAL/index.php";
     </script>';
   $_SESSION['Usuario'] = $usuario;
      //faltaria poner la pagina Principal
@@ -64,7 +66,7 @@ if(mysqli_num_rows($validar_login) > 0){
 echo '
     <script>
        alert ("Usuario no existe, por favor verifique los datos");
-        window.location ="Log-In.php";
+        window.location ="../LogIn/Log-In.php";
     </script>
       ';
       exit();

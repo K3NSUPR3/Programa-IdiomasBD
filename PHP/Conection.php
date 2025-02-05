@@ -41,5 +41,5 @@ $errors [] = "Nombre de usuario/contraseña invalidos";
   }
  }
 }
- */
+ este codigo es un respaldo antiguo de el codigo para enlazar la BD*/
 ?>

@@ -5,7 +5,7 @@ $enlace = new mysqli("localhost:3307", "root", "", "idiomas");
 if ($enlace->connect_error) {
     die("Error de conexión: " . $enlace->connect_error);
 }
-
+  //verififcar que no esta entrando otro usuarios que no sea administrador
 function esAdministrador($enlace, $usuario) {
     $stmt = $enlace->prepare("SELECT TipoUsuario FROM registroidiomas WHERE Usuario = ?");
     $stmt->bind_param("s", $usuario);
@@ -25,6 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["btn_registrar"])) {
         $nombre = htmlspecialchars($_POST["nombre"]);
         $apellidos = htmlspecialchars($_POST["apellidos"]);
         $contrasena = htmlspecialchars($_POST["contrasena"]);
+        //encriptacion de la contraseña
+        $contrasenae="";
+        $contrasenae=hash('sha512', $contrasena);
         $correo = htmlspecialchars($_POST["correo"]);
         $sueldo = htmlspecialchars($_POST["sueldo"]);
         $fecha_ingreso = htmlspecialchars($_POST["fecha_ingreso"]);
@@ -40,7 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["btn_registrar"])) {
                 echo "<p style='color: red;'>El número de control ya está registrado.</p>";
             } else {
                 $stmt = $enlace->prepare("INSERT INTO profesor (NoControl, Nombre, Apellidos, Contraseña, Correo, Sueldo, FechaIn, Telefono) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("issssdss", $numero_control, $nombre, $apellidos, $contrasena, $correo, $sueldo, $fecha_ingreso, $telefono);
+                //tipo de dato i para int s para string y d para double
+                $stmt->bind_param("issssdss", $numero_control, $nombre, $apellidos, $contrasenae, $correo, $sueldo, $fecha_ingreso, $telefono);
 
                 if ($stmt->execute()) {
                     echo "<p style='color: green;'>Profesor registrado correctamente.</p>";

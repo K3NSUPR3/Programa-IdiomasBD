@@ -8,15 +8,14 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway|Ubuntu" rel="stylesheet">
 
     <!-- Estilos -->
-    <link rel="stylesheet" href="../CSS/ProcesoLogin.css">
-    <link rel="stylesheet" href="../CSS/EstiloLogIn.scss">
- 
+    <link rel="stylesheet" href="../../CSS/ProcesoLogin.css">
+    <link rel="stylesheet" href="../../CSS/EstiloLogIn.scss">
     <!--favicon-->
-    <link href="PRINCIPAL/img/favicon_io/favicon.ico" rel="icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
+    <link href="../PRINCIPAL/img/favicon_io/favicon.ico" rel="icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="..//apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="..//favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="..//favicon-16x16.png">
+        <link rel="manifest" href="..//site.webmanifest">
 
 
     <title>Formulario Login y Registro de Usuarios</title>
@@ -27,21 +26,22 @@
   <!-- Formularios -->
   <div class="contenedor-formularios">
         <!-- Links de los formularios -->
-         <img src="../SRC/IMG/lenguas.png" />
+         <img src="../../SRC/IMG/lenguas.png" />
         <ul class="contenedor-tabs">
             <li class="tab tab-segunda active"><a href="#">Iniciar Sesión</a></li>
-            <li class="tab tab-primera"><a href="Registrarse.php">Registrarse</a></li>
+            <li class="tab tab-primera"><a href="../Registrarse.php">Registrarse</a></li>
         </ul>
         <ul class="custom-tabs">
             <ul class="custom-tabs">
     <li class="custom-tab custom-tab-primera">
+       
         <a href="Log-In.php" id="administrador">Alumno</a>
     </li>
-    <li class="custom-tab custom-tab-primera">
-        <a href="Log-InU.php" id="administrador">Administrador</a>
-    </li>
     <li class="custom-tab custom-tab-segunda active">
-        <p>Profesor</p>
+        <p>Administrador</p>
+    </li>
+    <li class="custom-tab ">
+       <a href="Log-InP.php" id="administrador" class="custom-tab custom-tab-primera">Profesor</a> 
     </li>
 </ul>
 
@@ -52,7 +52,7 @@
             <div id="iniciar-sesion">
                 <h1>Iniciar Sesión</h1>
                 <!-- Contenido action se cambio -->
-                <form method="POST" action="UsuarioP.php">
+                <form method="POST" action="../Usuario/UsuarioU.php">
                    <!-- Añadido -->
                     <div class="contenedor-input">
                         <label>
@@ -66,7 +66,7 @@
                         </label>
                         <input type="password" minlength="8" name="password1" oninput="moveLabelUp(this)" required>
                     </div>
-                    <p class="forgot"><a href="CorreoPerdido.php">Olvidó la contraseña?</a></p>
+                    <p class="forgot"><a href="../CorreoPerdido.php">Olvidó la contraseña?</a></p>
                     <!-- Enviar consulta1 -->
                     <input type="submit" class="button button-block" name="botonIngresar" value="Iniciar Sesión">
                 </form>
@@ -74,8 +74,8 @@
     </div>
     
     <footer>
-        <script src="../JS/ExcepcionesLogin.js"></script>
-        <script src="../JS/DesplazarArriba.js"></script>
+        <script src="../../JS/ExcepcionesLogin.js"></script>
+        <script src="../../JS/DesplazarArriba.js"></script>
     </footer>
 </body>
 </html>

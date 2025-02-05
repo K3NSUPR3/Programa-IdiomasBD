@@ -7,6 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['Usuario']) && isset($_POST['password1'])) {
         $usuario = $_POST['Usuario'];
         $contrasena = $_POST['password1'];
+        //desencriptamiento  ingenieria inversa mismo procedimiento
+        $contrasena=hash('sha512',$contrasena);
 
         // Conexión a la base de datos
         $enlace = new mysqli("localhost:3307", "root", "", "idiomas");
@@ -17,6 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Asegúrate de usar sentencias preparadas para evitar inyecciones SQL
         $stmt = $enlace->prepare("SELECT TipoUsuario FROM registroidiomas WHERE Usuario=? AND Contraseña=?");
+        //desencriptado de la contraseña
+
         $stmt->bind_param("ss", $usuario, $contrasena);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -25,35 +29,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $rowQ = $result->fetch_assoc();
             $tipoUsuario = $rowQ['TipoUsuario'];
 
-            if ($tipoUsuario == 'profesor') {
+            if ($tipoUsuario == 'administrador') {
                 $_SESSION['Usuario'] = $usuario;
                 echo '<script type="text/javascript">
                         alert("Ingreso");
-                        window.location = "PRINCIPAL/indexM.php";
+                        window.location = "../PRINCIPAL/Testimonial/testimonial.php";
                       </script>';
                 exit();
             } else {
                 echo '<script>
-                        alert("No tienes permisos de profesor.");
-                        window.location = "Log-InP.php";
+                        alert("No tienes permisos de administrador.");
+                        window.location = "../LogIn/Log-InU.php";
                       </script>';
                 exit();
             }
         } else {
             echo '<script>
                     alert("Usuario o contraseña incorrectos, por favor verifica");
-                    window.location = "Log-InP.php";
+                    window.location = "../LogIn/Log-InU.php";
                   </script>';
             exit();
         }
     } else {
         echo 'Usuario o contraseña no están definidos. Por favor, intente de nuevo.';
-        header("location: Log-InP.php");
+        header("location:../LogIn/Log-InU.php");
         exit();
     }
 } else {
     echo 'El formulario no ha sido enviado correctamente.';
-    header("location: Log-InP.php");
+    header("location:../LogIn/Log-InU.php");
     exit();
 }
 ?>

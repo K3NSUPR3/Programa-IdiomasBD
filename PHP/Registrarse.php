@@ -25,7 +25,7 @@ include 'Conexion_Be.php';
         <!-- Links de los formularios -->
         <ul class="contenedor-tabs">
             <li class="tab tab-segunda">
-                <a href="Log-In.php">Iniciar Sesión</a></li>
+                <a href="LogIn/Log-In.php">Iniciar Sesión</a></li>
 <!-- verificacion -->
             <li class="tab tab-primera active">
                 <a href="#">Registrarse</a></li>

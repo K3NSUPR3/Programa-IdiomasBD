@@ -29,3 +29,9 @@ Revisar los log ins
 Falta hacer automatico el pase de tablas si tipoUsuario es igual  
 
 Falta que se guarde bien el reporte en testimonial.php abajo en cvg 
+
+Testimonial redirecciona hacia Añadir
+
+CE = Control Eliminacion
+
+Hay que cambiar el grupo que aparesca su ID

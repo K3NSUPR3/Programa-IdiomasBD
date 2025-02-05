@@ -82,6 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["btnregistrar"])) {
         $apellido = htmlspecialchars($_POST["txtapellido"]);
         $usuario = htmlspecialchars($_POST["txtusuario"]);
         $contrasena = htmlspecialchars($_POST["txtcontrasena"]);
+        //encriptacion de la contraseña
+        $contrasena=hash('sha512',$contrasena);
         $correo = htmlspecialchars($_POST["txtcorreo"]);
         $tipoUsuario = htmlspecialchars($_POST["TipoUsuario"]);
 

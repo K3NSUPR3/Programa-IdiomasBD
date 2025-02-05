@@ -180,7 +180,7 @@ if (!isset($_SESSION['Usuario']) || empty($_SESSION['Usuario'])) {
     <a href="../Cerrar_Sesion.php" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: red; text-decoration: none; border-radius: 5px; transition: background-color 0.3s;">Cerrar Sesión</a>
     <?php
     include '../ConexionSeq.php';
-    include "../CE/ControlEliminarMaes.php";
+    include '../CE/ControlEliminarMaes.php';
     // Librerías necesarias XD
     ?>
     <a href="../AñadirProfesor.php" class="btn btn-primary btn rounded mb-3"><i class="fa-solid fa-plus"></i> &nbsp;Añadir</a>

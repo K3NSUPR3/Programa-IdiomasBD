@@ -1,5 +1,5 @@
 <?php
-require_once 'ConexionSeq.php'; 
+require_once '../ConexionSeq.php'; 
 
 if (!empty($_GET["id"])) {
     $id = intval($_GET["id"]); // Convierte a entero para mayor seguridad
